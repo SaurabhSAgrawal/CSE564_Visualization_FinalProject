@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CSE 564 - Final Project</title>
+        <meta charset="utf-8">
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="description" content="">
+
+        <!-- <link href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css" rel="stylesheet"> -->
+
+        <!-- <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='jqvmap.css') }}"> -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/admin-materialize.min.css') }}">
+
+        <!-- Material Icons-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- load the d3.js library -->
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+        <script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+
+
+        <!-- <script src = "{{ url_for('static', filename='d3-tip.js')}}"></script> -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/styles.css') }}">
+    </head>
+    <body>
+        <main>
+            <div class="container" style="width: 100% !important;">
+                <div class="row">
+                    <div class="col l12 s12">
+                        <h4 style="text-align: center;">World Happiness</h4>
+                    </div>
+                </div>      
+                <div class="row">
+                    <div class="col l3 s3">
+                        <div class="card-panel" style="background-color: #201a1657;">
+                            <div id="piechart"></div>
+                            <div id="piechartlegend"></div>
+                        </div>  
+                    </div>
+                    <div class="col l6 s6">
+                        <div class="card-panel" style="background-color: #201a1657; height: 348px;">
+                            <div id="mapdiv" style="margin-left: -13px;"></div>
+                        </div>
+                    </div>
+                    <div class="col l3 s3">
+                        <div class="card-panel" style="background-color: #201a1657; height: 348px;">
+                        <div id="sunburst"></div>
+                    </div>        
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col l3 s3">
+                        <div class="card-panel" style="background-color: #201a1657; height: 348px;">
+                            <div id="barchart"></div>
+                        </div>
+                    </div>
+                    <div class="col l6 s6">
+                        <div class="card-panel" style="background-color: #201a1657;">
+                            <div id="para" style="width:960px;height:300px;"></div>
+                        </div>
+                    </div>
+                    <div class="col l3 s3">
+                        <div class="card-panel" style="background-color: #201a1657; height: 348px;">
+                            <div id="text1"></div>
+                            <div id=""></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main> 
+
+        <script src = "{{ url_for('static', filename='js/materialize.min.js')}}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/styles.css') }}">
+
+        <!-- <script src = "{{ url_for('static', filename='imagesloaded.pkgd.min.js')}}"></script>
+        <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script> -->
+    </body>
+</html>
