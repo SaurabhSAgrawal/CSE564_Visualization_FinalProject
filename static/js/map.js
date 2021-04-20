@@ -5,6 +5,10 @@ $.post("/scatterplot", function(d) {
     dataByYear = d;
 });
 
+var colorScale = d3.scaleLinear()
+  .domain([2.3, 8])
+  .range(d3.schemePurples[3]);
+
 var year = 2005;
 onload = function() {
     var $ = function(id) { return document.getElementById(id); };
@@ -17,6 +21,10 @@ onload = function() {
             data.set(countryName, +dataByYear[year][i].Life_Ladder);
         }
         console.log(data);
+        d3.select("#mapdiv").select("svg").select("g").selectAll("path").attr("fill", function (d) {
+            d.total = data.get(d.properties.name) || 0;
+            return colorScale(d.total);
+        })
     };
     $('slider').oninput();
 };
@@ -50,14 +58,10 @@ var tip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-              return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>";
+              return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Life Ladder: </strong><span class='details'>" + d.total.toFixed(3) +"</span>";
             });
 svg_map.call(tip);
 svg_map.call(zoom);
-
-var colorScale = d3.scaleThreshold()
-  .domain([10, 100, 1000, 5000, 10000, 50000])
-  .range(d3.schemePurples[7]);
 
 // Load external data and boot
 d3.queue()
