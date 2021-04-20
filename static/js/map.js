@@ -1,34 +1,50 @@
+var data = d3.map();
+
+var dataByYear = {};
+$.post("/scatterplot", function(d) {
+    dataByYear = d;
+});
+
 var year = 2005;
 onload = function() {
     var $ = function(id) { return document.getElementById(id); };
-    $('slider').oninput = function() { $('range').innerHTML = this.value; year = this.value; console.log(year);};
+    $('slider').oninput = function() { 
+        $('range').innerHTML = this.value; 
+        year = this.value;
+        console.log(year);
+        for(i in dataByYear[year]) {
+            var countryName = dataByYear[year][i].Country;
+            data.set(countryName, +dataByYear[year][i].Life_Ladder);
+        }
+        console.log(data);
+    };
     $('slider').oninput();
 };
 
-var width = 640 ,
-height = 250
+var width_map = 640 ,
+height_map = 250
 active = d3.select(null);
 
 var projection = d3.geoEquirectangular()
   .scale(120)
   .center([0,20])
-  .translate([width / 2, height / 2]);
+  .translate([width_map / 2, height_map / 2]);
 
 var path = d3.geoPath();
 var zoom = d3.zoom().on("zoom", zoomed);
 
-var svg = d3.select("#mapdiv").append("svg")
-.attr("width", width )
-.attr("height", height )
+var svg_map = d3.select("#mapdiv").append("svg")
+.attr("width", width_map )
+.attr("height", height_map )
 .on("click", stopped, true);
 
-svg.append("rect")
+svg_map.append("rect")
     .attr("class", "background")
-    .attr("width", width)
-    .attr("height", height)
+    .attr("width", width_map)
+    .attr("height", height_map)
     .on("click", reset);
 
-var g = svg.append('g');
+var g = svg_map.append('g');
 
 var tip = d3.tip()
             .attr('class', 'd3-tip')
@@ -36,13 +52,13 @@ var tip = d3.tip()
             .html(function(d) {
               return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>";
             });
-svg.call(tip);
-svg.call(zoom);
+svg_map.call(tip);
+svg_map.call(zoom);
 
-var data = d3.map();
 var colorScale = d3.scaleThreshold()
   .domain([10, 100, 1000, 5000, 10000, 50000])
   .range(d3.schemePurples[7]);
+
 // Load external data and boot
 d3.queue()
   .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
@@ -101,9 +117,9 @@ function ready(error, topo) {
         .projection(projection)
     )
     // set the color of each country
-    .attr("fill", function (d, i) {
-        d.total = data.get(d.id) || 0;
-        return colorScale(i);
+    .attr("fill", function (d) {
+        d.total = data.get("$" + d.properties.name) || 0;
+        return colorScale(d.total);
     })
     .style("stroke", "transparent")
     .attr("class", function(d){ return "Country" } )
@@ -120,17 +136,17 @@ function reset() {
     active.classed("active", false);
     active = d3.select(null);
   
-    svg.transition()
+    svg_map.transition()
         .duration(750)
         // .call( zoom.transform, d3.zoomIdentity.translate(0, 0).scale(1) ); // not in d3 v4
         .call( zoom.transform, d3.zoomIdentity ); // updated for d3 v4
-  }
+}
 
-  function zoomed() {
+function zoomed() {
     g.style("stroke-width", 1.5 / d3.event.transform.k + "px");
     // g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")"); // not in d3 v4
     g.attr("transform", d3.event.transform); // updated for d3 v4
-  }
+}
 
 // const range = document.getElementById('range'), rangeV = document.getElementById('rangeV'),
 // setValue = ()=>{

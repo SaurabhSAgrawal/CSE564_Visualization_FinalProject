@@ -40,20 +40,15 @@ def index():
     return render_template('index.html')
 
 
-
-
-@app.route("/scatterplot")
+@app.route("/scatterplot", methods=['POST'])
 def scatterplot():
     years = df["Year"].unique()
-    data_by_years = {str(year):[] for year in years}
+    data_by_years = {str(year): [] for year in years}
 
     for i in range(df.shape[0]):
         row = {attr: df[attr][i] for attr in ["Country"]+attrs_num}
         data_by_years[str(df["Year"][i])].append(row)
     return jsonify(data_by_years)
-
-
-
 
 
 if __name__ == "__main__":
