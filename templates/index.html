@@ -105,9 +105,10 @@
             var x_attr = "Life Ladder",
                 y_attr = "Social support";
 
-            $.getJSON(url+"/scatterplot?callback=?", function(d) { drawScatterplot(d[year], x_attr, y_attr); })
-            .fail(function() { console.log("failed"); });
-            
+            $.post("/scatterplot", function(d) {
+                drawScatterplot(d[year], x_attr, y_attr);
+            });
+
         </script>
         <!-- <script src = "{{ url_for('static', filename='imagesloaded.pkgd.min.js')}}"></script>
         <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script> -->
