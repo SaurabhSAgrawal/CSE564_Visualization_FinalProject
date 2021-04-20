@@ -10,10 +10,11 @@ var colorScale = d3.scaleLinear()
   .range(d3.schemePurples[3]);
 
 var year = 2005;
+var year_prev = year;
 onload = function() {
     var $ = function(id) { return document.getElementById(id); };
-    $('slider').oninput = function() { 
-        $('range').innerHTML = this.value; 
+    $('slider').oninput = function() {
+        $('range').innerHTML = this.value;
         year = this.value;
         console.log(year);
         for(i in dataByYear[year]) {
@@ -24,9 +25,16 @@ onload = function() {
         d3.select("#mapdiv").select("svg").select("g").selectAll("path").attr("fill", function (d) {
             d.total = data.get(d.properties.name) || 0;
             return colorScale(d.total);
-        })
+        });
+        /* update scatterplot as year value changes */
+        if (year_prev != year) {
+            console.log(year_prev, year);
+            updateScatterplot();
+            year_prev = year;
+        }
     };
     $('slider').oninput();
+
 };
 
 var width_map = 640 ,
@@ -92,7 +100,7 @@ function ready(error, topo) {
         .transition()
         .duration(200)
         .style("stroke", "none")
-        tip.hide(d) 
+        tip.hide(d)
     }
 
     let clickevent = function(d){
@@ -139,7 +147,7 @@ function stopped() {
 function reset() {
     active.classed("active", false);
     active = d3.select(null);
-  
+
     svg_map.transition()
         .duration(750)
         // .call( zoom.transform, d3.zoomIdentity.translate(0, 0).scale(1) ); // not in d3 v4

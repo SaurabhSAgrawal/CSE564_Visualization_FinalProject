@@ -22,7 +22,6 @@
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-        <script src="{{ url_for('static', filename='js/scatterplot.js')}}"></script>
         <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
         <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> -->
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -63,12 +62,53 @@
                 <div class="row" style="height: 40%;">
                     <div class="col l3 s3">
                         <div class="card-panel" style="background-color: #201a1657; height: 300px;">
-                            <div id="barchart"></div>
+                            <p>
+                                <form>
+                                    <select id="select_x_attr" onchange="selectAxisAttribute()">
+                                        <option value="none">Select X-axis attribute</option>
+                                        <option value="Life_Ladder">Life Ladder</option>
+                                        <option value="Log_GDP_per_capita">Log GDP per capita</option>
+                                        <option value="Social_support">Social support</option>
+                                        <option value="Healthy_life_expectancy_at_birth">Healthy life expectancy at birth</option>
+                                        <option value="Freedom_to _make_life_choices">Freedom to make life choices</option>
+                                        <option value="Generosity">Generosity</option>
+                                        <option value="Perceptions_of_corruption">Perceptions of corruption</option>
+                                        <option value="Positive_affect">Positive affect</option>
+                                        <option value="Negative_affect">Negative affect</option>
+                                        <option value="Alcohol_all">All (alcohol)</option>
+                                        <option value="Alcohol_beer">Beer</option>
+                                        <option value="Alcohol_wine">Wine</option>
+                                        <option value="Alcohol_spirits">Spirits</option>
+                                        <option value="Alcohol_other">Other (alcohol)</option>
+                                    </select>
+                                </form>
+                                <form>
+                                    <select id="select_y_attr" onchange="selectAxisAttribute()">
+                                        <option value="none">Select Y-axis attribute</option>
+                                        <option value="Life_Ladder">Life Ladder</option>
+                                        <option value="Log_GDP_per_capita">Log GDP per capita</option>
+                                        <option value="Social_support">Social support</option>
+                                        <option value="Healthy_life_expectancy_at_birth">Healthy life expectancy at birth</option>
+                                        <option value="Freedom_to _make_life_choices">Freedom to make life choices</option>
+                                        <option value="Generosity">Generosity</option>
+                                        <option value="Perceptions_of_corruption">Perceptions of corruption</option>
+                                        <option value="Positive_affect">Positive affect</option>
+                                        <option value="Negative_affect">Negative affect</option>
+                                        <option value="Alcohol_all">All (alcohol)</option>
+                                        <option value="Alcohol_beer">Beer</option>
+                                        <option value="Alcohol_wine">Wine</option>
+                                        <option value="Alcohol_spirits">Spirits</option>
+                                        <option value="Alcohol_other">Other (alcohol)</option>
+                                    </select>
+                                </form>
+                            </p>
+
+                            <p id="scatterplot"></p>
                         </div>
                     </div>
                     <div class="col l6 s6">
                         <div class="card-panel" style="background-color: #201a1657;">
-                            <div id="para" style="width:960px;height:280px;"></div>
+                            <div id="para" style="width:960px;height:252px;"></div>
                         </div>
                     </div>
                     <div class="col l3 s3">
@@ -81,33 +121,14 @@
             </div>
         </main>
         <script src = "{{ url_for('static', filename='js/map.js')}}"></script>
+        <script src= "{{ url_for('static', filename='js/scatterplot.js')}}"></script>
         <script src = "{{ url_for('static', filename='js/materialize.min.js')}}"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/styles.css') }}">
 
 <!--        <script src = "{{ url_for('static', filename='js/imagesloaded.pkgd.min.js')}}"></script>-->
         <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-        <!-- <script>
 
-            var width_1 = 376, height = 406;
-            var margin = {top: 30, bottom: 30, left: 30, right: 30};
-            var svg_width_1 = width_1 - margin.left - margin.right,
-                svg_height = height - margin.top - margin.bottom;
-
-            var svg_scat = d3.select("#scatterplot")
-                .append("svg")
-                    .attr("width", width_1)
-                    .attr("height", height)
-                .append("g")
-                    .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
-
-
-
-            var url = "http://127.0.0.1:5000";
-            /* add slider and function to update year value */
-            var year = "2015";
-            /* add dropdown buttons to change x-axis and y-axis attributes */
-            var x_attr = "Life Ladder",
-                y_attr = "Social support";
-
+        <!-- <script src = "{{ url_for('static', filename='imagesloaded.pkgd.min.js')}}"></script>
+        <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script> -->
     </body>
 </html>
