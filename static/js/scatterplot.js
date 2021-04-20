@@ -3,13 +3,21 @@ function drawScatterplot(data, x_attr, y_attr) {
     var x, y;
     var x_min, x_max, y_min, y_max;
 
-    console.log("hey!");
     svg_scat.append("text")
         .attr("id", "x_attr")
         .attr("font-family", "arial")
-        .attr("transform", "translate("+(svg_width_1/2)+", "+(svg_height)+")")
+        .attr("transform", "translate("+(svg_width_1/2)+", "+(svg_height+margin.bottom)+")")
         .style("text-anchor", "middle")
         .text(x_attr);
+
+    svg_scat.append("text")
+        .attr("id", "y_attr")
+        .attr("font-family", "arial")
+        .attr("transform", "rotate(270)")
+        .attr("x", 0 - (svg_height / 2))
+        .attr("y", 0 - margin.left + 10)
+        .style("text-anchor", "middle")
+        .text(y_attr);
 
     x_min = d3.min(data, function(d) { return d[x_attr]; });
     x_max = d3.max(data, function(d) { return d[x_attr]; });
@@ -19,7 +27,7 @@ function drawScatterplot(data, x_attr, y_attr) {
 
     x = d3.scaleLinear()
         .domain([x_min, x_max])
-        .range([0, svg_width]);
+        .range([0, svg_width_1]);
 
     svg_scat.append("g")
         .attr("id", "x_axis")

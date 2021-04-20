@@ -40,7 +40,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route("/scatterplot", methods=['POST'])
+@app.route("/scatterplot", methods=['POST', 'GET'])
 def scatterplot():
     years = df["Year"].unique()
     data_by_years = {str(year): [] for year in years}
