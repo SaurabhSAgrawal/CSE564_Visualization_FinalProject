@@ -12,10 +12,10 @@ from sklearn.metrics import pairwise_distances
 import re
 
 df = pd.read_csv("./data/merged.csv")
-
+df.fillna("null", inplace=True)
 attrs_total = df.columns.values.tolist()
 attrs_num = attrs_total[2:]
-# print("all attrs:", attrs_total)
+print("all attrs:", attrs_total)
 # print("num attrs:", attrs_num)
 
 # happiness = pd.read_csv("./data/happiness.csv")
@@ -30,20 +30,9 @@ attrs_num = attrs_total[2:]
 # for c in h_minus_a:
 #     print(c)
 
-### COLLECT BY YEAR
-
-# years = df["Year"].unique()
-# data_by_years = {year:[] for year in years}
-#
-# for i in range(df.shape[0]):
-#     row = {attr: df[attr][i] for attr in ["Country"]+attrs_num}
-#     data_by_years[df["Year"][i]].append(row)
-# print(data_by_years)
 
 app = Flask(__name__)
 CORS(app)
-
-
 
 
 @app.route("/", methods=['POST', 'GET'])
@@ -53,18 +42,19 @@ def index():
 
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
-
-
 @app.route("/scatterplot")
 def scatterplot():
     years = df["Year"].unique()
-    data_by_years = {year:[] for year in years}
+    data_by_years = {str(year):[] for year in years}
 
     for i in range(df.shape[0]):
         row = {attr: df[attr][i] for attr in ["Country"]+attrs_num}
-        data_by_years[df["Year"][i]].append(row)
-    print(data_by_years)
+        data_by_years[str(df["Year"][i])].append(row)
     return jsonify(data_by_years)
+
+
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

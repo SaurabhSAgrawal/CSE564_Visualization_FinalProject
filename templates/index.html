@@ -20,7 +20,10 @@
 
         <!-- load the d3.js library -->
         <script src="https://d3js.org/d3.v4.min.js"></script>
-        <!--
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script src="{{ url_for('static', filename='js/scatterplot.js')}}"></script>
+        <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
         <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -82,5 +85,34 @@
 
 <!--        <script src = "{{ url_for('static', filename='js/imagesloaded.pkgd.min.js')}}"></script>-->
         <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+        <script>
+
+            var width_1 = 376, height = 406;
+            var margin = {top: 30, bottom: 30, left: 30, right: 30};
+            var svg_width_1 = width_1 - margin.left - margin.right,
+                svg_height = height - margin.top - margin.bottom;
+
+            var svg_scat = d3.select("#scatterplot")
+                .append("svg")
+                    .attr("width", width_1)
+                    .attr("height", height)
+                .append("g")
+                    .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
+
+
+
+            var url = "http://127.0.0.1:5000";
+            /* add slider and function to update year value */
+            var year = "2015";
+            /* add dropdown buttons to change x-axis and y-axis attributes */
+            var x_attr = "Life Ladder",
+                y_attr = "Social support";
+
+            $.getJSON(url+"/scatterplot?callback=?", function(d) { drawScatterplot(d[year], x_attr, y_attr); })
+            .fail(function() { console.log("failed"); });
+
+        </script>
+        <!-- <script src = "{{ url_for('static', filename='imagesloaded.pkgd.min.js')}}"></script>
+        <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script> -->
     </body>
 </html>
