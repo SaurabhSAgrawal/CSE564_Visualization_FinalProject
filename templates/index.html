@@ -24,8 +24,7 @@
 
         <script src="{{ url_for('static', filename='js/scatterplot.js')}}"></script>
         <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> -->
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
         <script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
 
@@ -43,35 +42,37 @@
                 </div>      
                 <div class="row">
                     <div class="col l3 s3">
-                        <div class="card-panel" style="background-color: #201a1657;">
+                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
                             <div id="piechart"></div>
-                            <div id="piechartlegend"></div>
                         </div>  
                     </div>
                     <div class="col l6 s6">
-                        <div class="card-panel" style="background-color: #201a1657; height: 348px;">
+                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
                             <div id="mapdiv" style="margin-left: -13px;"></div>
+                            <span>Year:</span>
+                            <input id="slider" type="range" min="2005" max="2020" value="2005" step="1" style="width: 530px;"/>
+                            <span id="range">2005</span>
                         </div>
                     </div>
                     <div class="col l3 s3">
-                        <div class="card-panel" style="background-color: #201a1657; height: 348px;">
+                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
                         <div id="sunburst"></div>
                     </div>        
                 </div>
                 </div>
-                <div class="row">
+                <div class="row" style="height: 40%;">
                     <div class="col l3 s3">
-                        <div class="card-panel" style="background-color: #201a1657; height: 348px;">
+                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
                             <div id="barchart"></div>
                         </div>
                     </div>
                     <div class="col l6 s6">
                         <div class="card-panel" style="background-color: #201a1657;">
-                            <div id="para" style="width:960px;height:300px;"></div>
+                            <div id="para" style="width:960px;height:280px;"></div>
                         </div>
                     </div>
                     <div class="col l3 s3">
-                        <div class="card-panel" style="background-color: #201a1657; height: 348px;">
+                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
                             <div id="text1"></div>
                             <div id=""></div>
                         </div>
@@ -85,7 +86,7 @@
 
 <!--        <script src = "{{ url_for('static', filename='js/imagesloaded.pkgd.min.js')}}"></script>-->
         <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-        <script>
+        <!-- <script>
 
             var width_1 = 376, height = 406;
             var margin = {top: 30, bottom: 30, left: 30, right: 30};
@@ -108,11 +109,9 @@
             var x_attr = "Life Ladder",
                 y_attr = "Social support";
 
-            $.getJSON(url+"/scatterplot?callback=?", function(d) { drawScatterplot(d[year], x_attr, y_attr); })
-            .fail(function() { console.log("failed"); });
+            // $.getJSON(url+"/scatterplot?callback=?", function(d) { drawScatterplot(d[year], x_attr, y_attr); })
+            // .fail(function() { console.log("failed"); });
 
-        </script>
-        <!-- <script src = "{{ url_for('static', filename='imagesloaded.pkgd.min.js')}}"></script>
-        <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script> -->
+        </script> -->
     </body>
 </html>
