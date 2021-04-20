@@ -3,14 +3,14 @@
     <head>
         <title>CSE 564 - Final Project</title>
         <meta charset="utf-8">
-
+        <link rel="icon" href="data:,">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="description" content="">
 
-        <!-- <link href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css" rel="stylesheet"> -->
+        <link href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css" rel="stylesheet">
 
         <!-- <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='jqvmap.css') }}"> -->
         <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/admin-materialize.min.css') }}">
@@ -24,12 +24,12 @@
 
         <script src="{{ url_for('static', filename='js/scatterplot.js')}}"></script>
         <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> -->
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
         <script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 
-
-        <!-- <script src = "{{ url_for('static', filename='d3-tip.js')}}"></script> -->
+        <script src = "{{ url_for('static', filename='js/d3-tip.js')}}"></script>
+        <!-- <script src = "{{ url_for('static', filename='js/tooltip.js')}}"></script> -->
         <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/styles.css') }}">
     </head>
     <body>
@@ -42,35 +42,37 @@
                 </div>
                 <div class="row">
                     <div class="col l3 s3">
-                        <div class="card-panel" style="background-color: #201a1657; height: 430px;">
+                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
                             <div id="piechart"></div>
-                            <div id="piechartlegend"></div>
                         </div>
                     </div>
                     <div class="col l6 s6">
-                        <div class="card-panel" style="background-color: #201a1657; height: 430px;">
+                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
                             <div id="mapdiv" style="margin-left: -13px;"></div>
+                            <span>Year:</span>
+                            <input id="slider" type="range" min="2005" max="2020" value="2005" step="1" style="width: 530px;"/>
+                            <span id="range">2005</span>
                         </div>
                     </div>
                     <div class="col l3 s3">
-                        <div class="card-panel" style="background-color: #201a1657; height: 430px;">
+                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
                         <div id="sunburst"></div>
                     </div>
                 </div>
                 </div>
-                <div class="row">
+                <div class="row" style="height: 40%;">
                     <div class="col l3 s3">
-                        <div class="card-panel" style="background-color: #201a1657; height: 430px;">
-                            <div id="scatterplot"></div>
+                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
+                            <div id="barchart"></div>
                         </div>
                     </div>
                     <div class="col l6 s6">
                         <div class="card-panel" style="background-color: #201a1657;">
-                            <div id="para" style="width:960px;height:382px;"></div>
+                            <div id="para" style="width:960px;height:280px;"></div>
                         </div>
                     </div>
                     <div class="col l3 s3">
-                        <div class="card-panel" style="background-color: #201a1657; height: 430px;">
+                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
                             <div id="text1"></div>
                             <div id=""></div>
                         </div>
@@ -78,11 +80,13 @@
                 </div>
             </div>
         </main>
-
+        <script src = "{{ url_for('static', filename='js/map.js')}}"></script>
         <script src = "{{ url_for('static', filename='js/materialize.min.js')}}"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/styles.css') }}">
 
-        <script>
+<!--        <script src = "{{ url_for('static', filename='js/imagesloaded.pkgd.min.js')}}"></script>-->
+        <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+        <!-- <script>
 
             var width_1 = 376, height = 406;
             var margin = {top: 30, bottom: 30, left: 30, right: 30};
@@ -105,12 +109,5 @@
             var x_attr = "Life Ladder",
                 y_attr = "Social support";
 
-            $.post("/scatterplot", function(d) {
-                drawScatterplot(d[year], x_attr, y_attr);
-            });
-
-        </script>
-        <!-- <script src = "{{ url_for('static', filename='imagesloaded.pkgd.min.js')}}"></script>
-        <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script> -->
     </body>
 </html>
