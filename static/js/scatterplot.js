@@ -39,7 +39,7 @@ function drawScatterplot(data, x_attr, y_attr) {
         .attr("font-family", "arial")
         .attr("transform", "translate("+(svg_width_scat/2)+", "+(svg_height_scat+margin_scat.bottom)+")")
         .style("text-anchor", "middle")
-        .text(x_attr);
+        .text(x_attr.replace("_", " ").toLowerCase());
 
     svg_scat.append("text")
         .attr("id", "y_attr")
@@ -48,7 +48,7 @@ function drawScatterplot(data, x_attr, y_attr) {
         .attr("x", 0 - (svg_height_scat / 2))
         .attr("y", 0 - margin_scat.left/2+20)
         .style("text-anchor", "middle")
-        .text(y_attr);
+        .text(y_attr.replace("_", " ").toLowerCase());
 
     x_min = d3.min(data, function(d) { return d[x_attr]; });
     x_max = d3.max(data, function(d) { return d[x_attr]; });
@@ -61,6 +61,7 @@ function drawScatterplot(data, x_attr, y_attr) {
         .range([0, svg_width_scat]);
 
     svg_scat.append("g")
+        .attr("class", "axisWhite")
         .attr("id", "x_axis")
         .attr("font-family", "arial")
         .attr("transform", "translate(0, " + svg_height_scat + ")")
@@ -71,6 +72,7 @@ function drawScatterplot(data, x_attr, y_attr) {
         .range([0, svg_height_scat]);
 
     svg_scat.append("g")
+        .attr("class", "axisWhite")
         .attr("id", "y_axis")
         .call(d3.axisLeft(y));
 

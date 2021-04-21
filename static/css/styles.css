@@ -2,6 +2,18 @@ body {
   background-color: #222;
   color: #ccc;
 }
+
+.axisWhite line,
+.axisWhite path,
+.axisWhite text {
+    stroke: #fff;
+}
+
+.select_x_attr,
+.select_y_attr {
+    position: absolute;
+}
+
 .parcoords {
   display: block;
 }
@@ -28,6 +40,10 @@ body {
   fill: none;
   stroke: #ccc;
   stroke-width: 1px;
+}
+
+.axis .tick {
+    stroke: #fff;
 }
 
 .axis .tick text {
