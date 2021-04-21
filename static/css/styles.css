@@ -4,14 +4,13 @@ body {
 }
 
 .axisWhite line,
-.axisWhite path,
-.axisWhite text {
-    stroke: #fff;
+.axisWhite path {
+  stroke: #fff;
 }
 
 .select_x_attr,
 .select_y_attr {
-    position: absolute;
+  position: absolute;
 }
 
 .parcoords {
@@ -43,7 +42,7 @@ body {
 }
 
 .axis .tick {
-    stroke: #fff;
+  stroke: #fff;
 }
 
 .axis .tick text {

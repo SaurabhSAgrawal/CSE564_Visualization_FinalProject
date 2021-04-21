@@ -3,18 +3,26 @@ var data = d3.map();
 var dataByYear = {};
 $.post("/scatterplot", function(d) {
     dataByYear = d;
+    for(i in dataByYear[2005]) {
+        var countryName = dataByYear[2005][i].Country;
+        data.set(countryName, +dataByYear[2005][i].Life_Ladder);
+    }
+    d3.select("#mapdiv").select("svg").select("g").selectAll("path").attr("fill", function (d) {
+        d.total = data.get(d.properties.name) || 0;
+        return colorScale(d.total);
+    })
 });
 
 var colorScale = d3.scaleLinear()
   .domain([2.3, 8])
-  .range(d3.schemePurples[3]);
+  .range(["#F7FBFF", "#08306B"]);
 
 var year = 2005;
 var year_prev = year;
 onload = function() {
     var $ = function(id) { return document.getElementById(id); };
-    $('slider').oninput = function() {
-        $('range').innerHTML = this.value;
+    $('slider').oninput = function() { 
+        $('range').innerHTML = this.value; 
         year = this.value;
         console.log(year);
         for(i in dataByYear[year]) {
@@ -34,7 +42,6 @@ onload = function() {
         }
     };
     $('slider').oninput();
-
 };
 
 var width_map = 640 ,
@@ -100,7 +107,7 @@ function ready(error, topo) {
         .transition()
         .duration(200)
         .style("stroke", "none")
-        tip.hide(d)
+        tip.hide(d) 
     }
 
     let clickevent = function(d){
@@ -130,7 +137,7 @@ function ready(error, topo) {
     )
     // set the color of each country
     .attr("fill", function (d) {
-        d.total = data.get(d.properties.name) || 0;
+        d.total = data.get("$" + d.properties.name) || 0;
         return colorScale(d.total);
     })
     .style("stroke", "transparent")
@@ -147,7 +154,7 @@ function stopped() {
 function reset() {
     active.classed("active", false);
     active = d3.select(null);
-
+  
     svg_map.transition()
         .duration(750)
         // .call( zoom.transform, d3.zoomIdentity.translate(0, 0).scale(1) ); // not in d3 v4
