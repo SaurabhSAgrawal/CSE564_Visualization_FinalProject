@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 </div>
-                <div class="row" style="height: 40%;">
+                <div class="row">
                     <div class="col l3 s3">
                         <div class="card-panel" style="background-color: #201a1657; height: 300px;">
                             <p>
@@ -103,7 +103,27 @@
                                 </form>
                             </p>
 
-                            <p id="scatterplot"></p>
+                            <p id="scatterplot">
+                                <form>
+                                    <select id="select_x_attr" onchange="selectAxisAttribute()">
+                                        <option value="none">Select X-axis attribute</option>
+                                        <option value="Life_Ladder">Life Ladder</option>
+                                        <option value="Log_GDP_per_capita">Log GDP per capita</option>
+                                        <option value="Social_support">Social support</option>
+                                        <option value="Healthy_life_expectancy_at_birth">Healthy life expectancy at birth</option>
+                                        <option value="Freedom_to _make_life_choices">Freedom to make life choices</option>
+                                        <option value="Generosity">Generosity</option>
+                                        <option value="Perceptions_of_corruption">Perceptions of corruption</option>
+                                        <option value="Positive_affect">Positive affect</option>
+                                        <option value="Negative_affect">Negative affect</option>
+                                        <option value="Alcohol_all">All (alcohol)</option>
+                                        <option value="Alcohol_beer">Beer</option>
+                                        <option value="Alcohol_wine">Wine</option>
+                                        <option value="Alcohol_spirits">Spirits</option>
+                                        <option value="Alcohol_other">Other (alcohol)</option>
+                                    </select>
+                                </form>
+                            </p>
                         </div>
                     </div>
                     <div class="col l6 s6">
