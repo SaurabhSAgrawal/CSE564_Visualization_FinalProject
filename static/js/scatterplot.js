@@ -8,7 +8,7 @@ var svg_scat = d3.select("#scatterplot")
         .attr("width", width_scat)
         .attr("height", height_scat)
     .append("g")
-        .attr("transform", "translate(" + margin_scat.left + ", " + margin_scat.top + ")");
+        .attr("transform", "translate(" + (margin_scat.left - 55) + ", " + (margin_scat.top - 25) + ")");
 
 /* add slider and function to update year value */
 /* add dropdown buttons to change x-axis and y-axis attributes */

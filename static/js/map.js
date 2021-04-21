@@ -130,7 +130,7 @@ function ready(error, topo) {
     )
     // set the color of each country
     .attr("fill", function (d) {
-        d.total = data.get("$" + d.properties.name) || 0;
+        d.total = data.get(d.properties.name) || 0;
         return colorScale(d.total);
     })
     .style("stroke", "transparent")
