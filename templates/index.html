@@ -42,7 +42,47 @@
                 <div class="row">
                     <div class="col l3 s3">
                         <div class="card-panel" style="background-color: #201a1657; height: 300px;">
-                            <div id="piechart"></div>
+                            <div class="input-field col s12 m6">
+                                <select id="select_x_attr">
+                                    <!-- <option value="none" disabled selected>select X-axis attribute</option> -->
+                                    <option value="Life_Ladder">life ladder</option>
+                                    <option value="Log_GDP_per_capita">log GDP per capita</option>
+                                    <option value="Social_support">social support</option>
+                                    <option value="Healthy_life_expectancy_at_birth">healthy life expectancy at birth</option>
+                                    <option value="Freedom_to_make_life_choices">freedom to make life choices</option>
+                                    <option value="Generosity">generosity</option>
+                                    <option value="Perceptions_of_corruption">perceptions of corruption</option>
+                                    <option value="Positive_affect">positive affect</option>
+                                    <option value="Negative_affect">negative affect</option>
+                                    <option value="Alcohol_all">all (alcohol)</option>
+                                    <option value="Alcohol_beer">beer</option>
+                                    <option value="Alcohol_wine">wine</option>
+                                    <option value="Alcohol_spirits">spirits</option>
+                                    <option value="Alcohol_other">other (alcohol)</option>
+                                </select>
+                                <label>X-axis attribute</label>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <select id="select_y_attr">
+                                    <!-- <option value="none" disabled selected>select Y-axis attribute</option> -->
+                                    <option value="Life_Ladder">life ladder</option>
+                                    <option value="Log_GDP_per_capita">log GDP per capita</option>
+                                    <option value="Social_support">social support</option>
+                                    <option value="Healthy_life_expectancy_at_birth">healthy life expectancy at birth</option>
+                                    <option value="Freedom_to_make_life_choices">freedom to make life choices</option>
+                                    <option value="Generosity">generosity</option>
+                                    <option value="Perceptions_of_corruption">perceptions of corruption</option>
+                                    <option value="Positive_affect">positive affect</option>
+                                    <option value="Negative_affect">negative affect</option>
+                                    <option value="Alcohol_all">all (alcohol)</option>
+                                    <option value="Alcohol_beer">beer</option>
+                                    <option value="Alcohol_wine">wine</option>
+                                    <option value="Alcohol_spirits">spirits</option>
+                                    <option value="Alcohol_other">other (alcohol)</option>
+                                </select>
+                                <label>Y-axis attribute</label>
+                            </div>
+                            <div id="scatterplot"></div>
                         </div>
                     </div>
                     <div class="col l6 s6">
@@ -62,49 +102,7 @@
                 <div class="row">
                     <div class="col l3 s3">
                         <div class="card-panel" style="background-color: #201a1657; height: 300px;">
-                            <p>
-                                <form>
-                                    <select id="select_x_attr" onchange="selectAxisAttribute()">
-                                        <option value="none">Select X-axis attribute</option>
-                                        <option value="Life_Ladder">Life Ladder</option>
-                                        <option value="Log_GDP_per_capita">Log GDP per capita</option>
-                                        <option value="Social_support">Social support</option>
-                                        <option value="Healthy_life_expectancy_at_birth">Healthy life expectancy at birth</option>
-                                        <option value="Freedom_to _make_life_choices">Freedom to make life choices</option>
-                                        <option value="Generosity">Generosity</option>
-                                        <option value="Perceptions_of_corruption">Perceptions of corruption</option>
-                                        <option value="Positive_affect">Positive affect</option>
-                                        <option value="Negative_affect">Negative affect</option>
-                                        <option value="Alcohol_all">All (alcohol)</option>
-                                        <option value="Alcohol_beer">Beer</option>
-                                        <option value="Alcohol_wine">Wine</option>
-                                        <option value="Alcohol_spirits">Spirits</option>
-                                        <option value="Alcohol_other">Other (alcohol)</option>
-                                    </select>
-                                </form>
-                            </p>
-                            <p>
-                                <form>
-                                    <select id="select_y_attr" onchange="selectAxisAttribute()">
-                                        <option value="none">Select Y-axis attribute</option>
-                                        <option value="Life_Ladder">Life Ladder</option>
-                                        <option value="Log_GDP_per_capita">Log GDP per capita</option>
-                                        <option value="Social_support">Social support</option>
-                                        <option value="Healthy_life_expectancy_at_birth">Healthy life expectancy at birth</option>
-                                        <option value="Freedom_to _make_life_choices">Freedom to make life choices</option>
-                                        <option value="Generosity">Generosity</option>
-                                        <option value="Perceptions_of_corruption">Perceptions of corruption</option>
-                                        <option value="Positive_affect">Positive affect</option>
-                                        <option value="Negative_affect">Negative affect</option>
-                                        <option value="Alcohol_all">All (alcohol)</option>
-                                        <option value="Alcohol_beer">Beer</option>
-                                        <option value="Alcohol_wine">Wine</option>
-                                        <option value="Alcohol_spirits">Spirits</option>
-                                        <option value="Alcohol_other">Other (alcohol)</option>
-                                    </select>
-                                </form>
-                            </p>
-                            <p id="scatterplot"></p>
+                            <div id="piechart"></div>
                         </div>
                     </div>
                     <div class="col l6 s6">

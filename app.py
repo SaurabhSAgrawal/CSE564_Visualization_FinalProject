@@ -13,23 +13,9 @@ import re
 
 df = pd.read_csv("./data/merged.csv")
 df.fillna("null", inplace=True)
+print(df["Freedom_to_make_life_choices"].unique().tolist())
 attrs_total = df.columns.values.tolist()
 attrs_num = attrs_total[2:]
-print("all attrs:", attrs_total)
-# print("num attrs:", attrs_num)
-
-# happiness = pd.read_csv("./data/happiness.csv")
-# h_countries = happiness["Country"].unique().tolist()
-# alcohol = pd.read_csv("./data/alcohol.csv")
-# a_countries = alcohol["Country"].unique().tolist()
-# h_minus_a = sorted(set(h_countries).difference(set(a_countries)))
-# a_minus_h = sorted(set(a_countries).difference(set(h_countries)))
-# for c in a_minus_h:
-#     print(c)
-# print()
-# for c in h_minus_a:
-#     print(c)
-
 
 app = Flask(__name__)
 CORS(app)
@@ -50,6 +36,9 @@ def scatterplot():
         data_by_years[str(df["Year"][i])].append(row)
     return jsonify(data_by_years)
 
+@app.route("/attributes", methods=['POST', 'GET'])
+def attributes():
+    return jsonify({"attributes": attrs_num})
 
 if __name__ == "__main__":
     app.run(debug=True)
