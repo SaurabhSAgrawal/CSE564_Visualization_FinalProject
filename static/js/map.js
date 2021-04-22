@@ -15,6 +15,12 @@ $.post("/scatterplot", function(d) {
     })
 });
 
+// var pcpData = {}
+// $.post("/pcp", function(d) {
+//     pcpData = JSON.parse(d.pcpData);
+//     drawPCP(pcpData[2005]);
+// });
+
 var colorScale = d3.scaleLinear()
   .domain([2.3, 8])
   .range(["#F7FBFF", "#08306B"]);
@@ -39,7 +45,7 @@ onload = function() {
         /* update scatterplot as year value changes */
         if (year_prev != year) {
             updateScatterplot();
-            updateBarchart();
+            drawPCP(dataByYear[year]);
             year_prev = year;
         }
     };
