@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import preprocessing
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 from sklearn.manifold import MDS
 from sklearn.metrics import pairwise_distances
@@ -35,9 +35,27 @@ def scatterplot():
         data_by_years[str(df["Year"][i])].append(row)
     return jsonify(data_by_years)
 
+
 @app.route("/attributes", methods=['POST', 'GET'])
 def attributes():
     return jsonify({"attributes": attrs_num})
+
+
+# @app.route("/pcp", methods=['POST', 'GET'])
+# def pcp():
+#     X_stdDF = X_stdDF_pcp[X_stdDF_pcp.columns.values.tolist()]
+#     years = X_stdDF["Year"].unique()
+#     data_by_years = {str(year): [] for year in years}
+#     for i in range(X_stdDF.shape[0]):
+#         row = {attr: X_stdDF[attr][i] for attr in ["Country"]+attrs_num}
+#         data_by_years[str(X_stdDF["Year"][i])].append(row)
+#     return jsonify(data_by_years)
+    # data = X_stdDF
+    # data = json.dumps(data.to_dict(orient='records'), indent=2)
+    # data = {'pcpData': data}
+    # print(data)
+    # return jsonify(data)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

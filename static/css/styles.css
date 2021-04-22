@@ -5,24 +5,24 @@ body {
 
 .axisWhite line,
 .axisWhite path {
-    stroke: #fff;
+  stroke: #fff;
 }
 
 .select-dropdown {
-    color: #ccc;
+  color: #ccc;
 }
 
 div.tooltip {
-    position: absolute;
-    text-align: center;
-    width: 60px;
-    height: 28px;
-    padding: 2px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
-    border: 0px;
-    border-radius: 8px;
-    pointer-events: none;
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
 }
 
 .parcoords {
@@ -203,9 +203,9 @@ text {
   margin: 0px;
 }
 
-svg {
+/* svg {
   float: left;
-}
+} */
 
 .legend {
   float: left;
@@ -303,4 +303,34 @@ div.tooltip p {
 
 .chart-1 {
   width: 33%;
+}
+
+.background_pcp .path_pcp {
+  fill: none;
+  stroke: #ddd;
+  shape-rendering: crispEdges;
+}
+
+.foreground_pcp .path_pcp {
+  fill: none;
+  stroke: steelblue;
+}
+
+.brush_pcp .extent {
+  fill-opacity: 0.3;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+.axis_pcp line,
+.axis_pcp path {
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+.axis_pcp text {
+  /* text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff; */
+  fill: #fff;
+  cursor: move;
 }
