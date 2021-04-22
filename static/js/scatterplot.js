@@ -6,6 +6,9 @@ $(document).ready(function(){
     $('select').not('.disabled').formSelect();
 });
 
+var white = "#ffffff";
+var orange = "#ec7014";
+
 var x_attr = "Life_Ladder",
     y_attr = "Life_Ladder";
 
@@ -123,8 +126,7 @@ function drawScatterplot(data, x_attr, y_attr) {
         .attr("id", "y_axis")
         .call(d3.axisLeft(y));
 
-    var white = "#ffffff";
-    var orange = "#ec7014";
+
 
     svg_scat.append("g")
         .call(d3.brush()

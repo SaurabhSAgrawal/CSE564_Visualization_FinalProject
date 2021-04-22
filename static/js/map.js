@@ -21,8 +21,8 @@ var year = 2005;
 var year_prev = year;
 onload = function() {
     var $ = function(id) { return document.getElementById(id); };
-    $('slider').oninput = function() { 
-        $('range').innerHTML = this.value; 
+    $('slider').oninput = function() {
+        $('range').innerHTML = this.value;
         year = this.value;
         console.log(year);
         for(i in dataByYear[year]) {
@@ -36,7 +36,6 @@ onload = function() {
         });
         /* update scatterplot as year value changes */
         if (year_prev != year) {
-            console.log(year_prev, year);
             updateScatterplot();
             year_prev = year;
         }
@@ -107,16 +106,31 @@ function ready(error, topo) {
         .transition()
         .duration(200)
         .style("stroke", "none")
-        tip.hide(d) 
+        tip.hide(d)
     }
 
     let clickevent = function(d){
 
-        country = d.id;
+        country = d.properties.name;
         country1 = country.toString();
         console.log(d);
-        console.log(country1)
+        console.log(country1);
         console.log(year);
+
+        svg_scat.selectAll("circle")
+            .style("fill", function(d2) {
+                if (d2["country"] == country1) {
+                    return orange;
+                }
+                else {
+                    return white;
+                }
+            })
+            .attr("r", function(d2) {
+                if (d2["country"] == country1)
+                    return 5 * Math.sqrt(d2["count"]);
+                else return 3 * Math.sqrt(d2["count"]);
+            });
         // d3.queue().defer(d3.json, "/getDataPerCountryPie?country="+country1)
         // .await(drawpie);
         // d3.queue().defer(d3.json, "/getDataSun?country="+country1)
@@ -154,11 +168,15 @@ function stopped() {
 function reset() {
     active.classed("active", false);
     active = d3.select(null);
-  
+
     svg_map.transition()
         .duration(750)
         // .call( zoom.transform, d3.zoomIdentity.translate(0, 0).scale(1) ); // not in d3 v4
         .call( zoom.transform, d3.zoomIdentity ); // updated for d3 v4
+
+    svg_scat.selectAll("circle")
+        .style("fill", function(d2) { return white;  })
+        .attr("r", function(d2) { return 3 * Math.sqrt(d2["count"]); });
 }
 
 function zoomed() {
