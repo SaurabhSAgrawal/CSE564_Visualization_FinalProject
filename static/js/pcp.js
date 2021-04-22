@@ -30,13 +30,13 @@ function drawPCP(data) {
 
     for (i in dimensions) {
         attrName = dimensions[i]
+        if (attrName != "country")
         var y_min = d3.min(data, function(d) {
             if (d[attrName] == "null")  return 0;
             else return +d[attrName]; });
         var y_max = d3.max(data, function(d) {
             if (d[attrName] == "null")  return 0;
             else return +d[attrName]; });
-        console.log(attrName, y_min, y_max);
         y[attrName] = d3.scaleLinear()
           // .domain( d3.extent(data, function(d) { return +d[attrName]; }) )
           .domain([y_min, y_max])
@@ -77,7 +77,7 @@ function drawPCP(data) {
                 .subject(function(d) { return {x: x(d)}; })
                 .on("start", function(d) {
                     dragging[d] = x(d);
-                    //background.attr("visibility", "hidden");
+                    background.attr("visibility", "hidden");
                 })
                 .on("drag", function(d) {
                     dragging[d] = Math.min(width, Math.max(0, d3.event.x));
