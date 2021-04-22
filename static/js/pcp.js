@@ -77,7 +77,7 @@ function drawPCP(data) {
                 .subject(function(d) { return {x: x(d)}; })
                 .on("start", function(d) {
                     dragging[d] = x(d);
-                    background.attr("visibility", "hidden");
+                    //background.attr("visibility", "hidden");
                 })
                 .on("drag", function(d) {
                     dragging[d] = Math.min(width, Math.max(0, d3.event.x));
