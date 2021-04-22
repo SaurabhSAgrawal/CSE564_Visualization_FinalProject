@@ -53,7 +53,7 @@ onload = function() {
 };
 
 var width_map = 640 ,
-height_map = 250
+height_map = 280
 active = d3.select(null);
 
 var projection = d3.geoEquirectangular()
