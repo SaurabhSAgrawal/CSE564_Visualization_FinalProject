@@ -8,9 +8,11 @@ $(document).ready(function(){
 
 var white = "#ffffff";
 var orange = "#ec7014";
+var deep_blue = "#21457a";
+var light_blue = "#768daf";
 
 var x_attr = "Life_Ladder",
-    y_attr = "Life_Ladder";
+    y_attr = "Healthy_life_expectancy_at_birth";
 
 var selected_countries = [];
 var options = [];
@@ -146,12 +148,16 @@ function drawScatterplot(data, x_attr, y_attr) {
             .on("mouseover", function(d) {
                 tip_scat.show(d);
                 d3.select(this)
-                    .style("fill", orange);
+                    // .attr("r", function(d) { return 7*Math.sqrt(d["count"]); })
+                    .style("fill", light_blue);
+                    // .style("stroke", white);
+                    // .style("stroke-width", 2);
             })
             .on("mouseout", function(d) {
                 tip_scat.hide(d);
                 if (!selected_countries.includes(d["country"]))
                     d3.select(this)
+                        // .attr("r", function(d) { return 3*Math.sqrt(d["count"]); })
                         .style("fill", white);
             });
 
@@ -171,7 +177,7 @@ function drawScatterplot(data, x_attr, y_attr) {
                  && y(d["y_val"]) >= y0 && y(d["y_val"]) <= y0 + dy) {
                      selected_countries.push(d["country"]);
                      /* UPDATE OTHER PLOTS */
-                     return orange;
+                     return light_blue;//deep_blue;
                  }
                  else  {
                     //removeFromArray(selected_countries, d["country"]);
@@ -179,6 +185,10 @@ function drawScatterplot(data, x_attr, y_attr) {
                     return white;
                  }
             });
+            // .style("stroke-width", function(d) {
+            //     if (selected_countries.includes(d["country"])) return 2;
+            //     else return 0;
+            // });
     }
 
     function brushended() {

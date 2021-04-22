@@ -15,6 +15,7 @@ df = pd.read_csv("./data/merged.csv")
 df.fillna("null", inplace=True)
 attrs_total = df.columns.values.tolist()
 attrs_num = attrs_total[2:]
+years = df["Year"].unique()
 
 app = Flask(__name__)
 CORS(app)
@@ -27,7 +28,6 @@ def index():
 
 @app.route("/scatterplot", methods=['POST', 'GET'])
 def scatterplot():
-    years = df["Year"].unique()
     data_by_years = {str(year): [] for year in years}
 
     for i in range(df.shape[0]):
@@ -38,6 +38,15 @@ def scatterplot():
 @app.route("/attributes", methods=['POST', 'GET'])
 def attributes():
     return jsonify({"attributes": attrs_num})
+
+@app.route("/barchart", methods=['POST', 'GET'])
+def barchart():
+    alcohol_by_years = {str(year): [] for year in years}
+    attrs_alcohol = attrs_num[-4:]
+    for i in range(df.shape[0]):
+        row ={attr: df[attr][i] for attr in ["Country"]+attrs_alcohol}
+        alcohol_by_years[str(df["Year"][i])].append(row)
+    return jsonify(alcohol_by_years)
 
 if __name__ == "__main__":
     app.run(debug=True)

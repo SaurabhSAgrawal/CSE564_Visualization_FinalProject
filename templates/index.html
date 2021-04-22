@@ -68,7 +68,7 @@
                                     <option value="Life_Ladder">life ladder</option>
                                     <option value="Log_GDP_per_capita">log GDP per capita</option>
                                     <option value="Social_support">social support</option>
-                                    <option value="Healthy_life_expectancy_at_birth">healthy life expectancy at birth</option>
+                                    <option value="Healthy_life_expectancy_at_birth" selected>healthy life expectancy at birth</option>
                                     <option value="Freedom_to_make_life_choices">freedom to make life choices</option>
                                     <option value="Generosity">generosity</option>
                                     <option value="Perceptions_of_corruption">perceptions of corruption</option>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="col l3 s3">
                         <div class="card-panel" style="background-color: #201a1657; height: 300px;">
-                        <div id="sunburst"></div>
+                        <div id="barchart"></div>
                     </div>
                 </div>
                 </div>
@@ -121,6 +121,7 @@
         </main>
         <script src = "{{ url_for('static', filename='js/map.js')}}"></script>
         <script src= "{{ url_for('static', filename='js/scatterplot.js')}}"></script>
+        <script src= "{{ url_for('static', filename='js/barchart.js')}}"></script>
         <script src = "{{ url_for('static', filename='js/materialize.min.js')}}"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/styles.css') }}">
 

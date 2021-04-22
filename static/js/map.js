@@ -1,6 +1,8 @@
 var data = d3.map();
 
 var dataByYear = {};
+
+var selected_country = "none";
 $.post("/scatterplot", function(d) {
     dataByYear = d;
     for(i in dataByYear[2005]) {
@@ -37,6 +39,7 @@ onload = function() {
         /* update scatterplot as year value changes */
         if (year_prev != year) {
             updateScatterplot();
+            updateBarchart();
             year_prev = year;
         }
     };
@@ -112,14 +115,14 @@ function ready(error, topo) {
     let clickevent = function(d){
 
         country = d.properties.name;
-        country1 = country.toString();
+        selected_country = country.toString();
         console.log(d);
-        console.log(country1);
+        console.log(selected_country);
         console.log(year);
 
         svg_scat.selectAll("circle")
             .style("fill", function(d2) {
-                if (d2["country"] == country1) {
+                if (d2["country"] == selected_country) {
                     return orange;
                 }
                 else {
@@ -127,17 +130,19 @@ function ready(error, topo) {
                 }
             })
             .attr("r", function(d2) {
-                if (d2["country"] == country1)
+                if (d2["country"] == selected_country)
                     return 5 * Math.sqrt(d2["count"]);
                 else return 3 * Math.sqrt(d2["count"]);
             });
-        // d3.queue().defer(d3.json, "/getDataPerCountryPie?country="+country1)
-        // .await(drawpie);
-        // d3.queue().defer(d3.json, "/getDataSun?country="+country1)
-        // .await(drawsunburst);
-        // d3.queue().defer(d3.json, "/getDataPerCountryBar?country=" + country1).await(updatebarchart);
 
-        // d3.queue().defer(d3.json, "/getTextData?country=" + country1).await(drawtext);
+            updateBarchart();
+        // d3.queue().defer(d3.json, "/getDataPerCountryPie?country="+selected_country)
+        // .await(drawpie);
+        // d3.queue().defer(d3.json, "/getDataSun?country="+selected_country)
+        // .await(drawsunburst);
+        // d3.queue().defer(d3.json, "/getDataPerCountryBar?country=" + selected_country).await(updatebarchart);
+
+        // d3.queue().defer(d3.json, "/getTextData?country=" + selected_country).await(drawtext);
     }
 
     // Draw the map
@@ -168,7 +173,6 @@ function stopped() {
 function reset() {
     active.classed("active", false);
     active = d3.select(null);
-
     svg_map.transition()
         .duration(750)
         // .call( zoom.transform, d3.zoomIdentity.translate(0, 0).scale(1) ); // not in d3 v4
@@ -177,6 +181,9 @@ function reset() {
     svg_scat.selectAll("circle")
         .style("fill", function(d2) { return white;  })
         .attr("r", function(d2) { return 3 * Math.sqrt(d2["count"]); });
+
+    selected_country = "none";
+    updateBarchart();
 }
 
 function zoomed() {
