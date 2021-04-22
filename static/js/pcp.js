@@ -1,3 +1,4 @@
+var pcp_blue = "#436390";
 function drawPCP(data) {
     d3.selectAll(".svg_pcp").remove();
 
@@ -14,14 +15,14 @@ function drawPCP(data) {
             .attr("class", "svg_pcp")
             .attr("width", svgWidth)
             .attr("height", svgHeight);
-    /*Heading*/      
+    /*Heading*/
     // svg.append("text")
     //     .attr("x", (width / 2))
     //     .attr("y", 20)
     //     .attr("font-size", "24px")
     //     .style("text-anchor", "middle")
     //     .text("Parallel Coordinate Plot");
-    
+
     var g = svg.append("g")
         .attr("transform", "translate(" + 5 + "," + 60 + ")");
 
@@ -36,7 +37,7 @@ function drawPCP(data) {
     x.domain(dimensions);
 
     var color = d3.scaleOrdinal(d3.schemeCategory10);
-    
+
     // background = g.append("g")
     //     .attr("class", "background_pcp")
     //     .selectAll("path")
@@ -53,10 +54,11 @@ function drawPCP(data) {
             .attr("d", path)
             .attr("class", "path_pcp")
             .style("stroke", function(d) {
-                return "#08306B";
+                //return "#08306B";
+                return pcp_blue;
                 //return color(d.ClusterID + 1);
             });
-    
+
     /* Add a group element for each dimension*/
     g = g.selectAll(".dimension")
     .data(dimensions)
@@ -89,7 +91,7 @@ function drawPCP(data) {
                         .attr("visibility", null);
                 })
             )
-            
+
     /* Add an axis and title*/
     g.append("g")
         .attr("class", "axis_pcp")
@@ -101,7 +103,7 @@ function drawPCP(data) {
             .attr("y", -9)
             .attr("transform", "rotate(323)")
             .text(function(d) { return d; });
-    
+
     /*Add and store a brush for each axis*/
     g.append("g")
         .attr("class", "brush_pcp")
@@ -116,7 +118,7 @@ function drawPCP(data) {
         .selectAll("rect")
         .attr("x", -8)
         .attr("width", 16);
-    
+
     /*Legend*/
     var legend = svg.selectAll(".legend")
         .data(color.domain())
@@ -140,31 +142,31 @@ function drawPCP(data) {
         .text(function(d) {
             return d;
         });
-    
+
     function position(d) {
         var v = dragging[d];
         return v == null ? x(d) : v;
     }
-    
+
     function transition(g) {
         return g.transition().duration(500);
     }
-    
+
     /*Returns the path for a given data point*/
     function path(d) {
-        return line(dimensions.map(function(p) { 
+        return line(dimensions.map(function(p) {
             var val = d[p];
             if(val == null || val == "null") {
-               val = 0; 
+               val = 0;
             }
-            return [position(p), y[p](val)]; 
+            return [position(p), y[p](val)];
         }));
     }
-    
+
     function brushstart() {
         d3.event.sourceEvent.stopPropagation();
     }
-    
+
     /*Handles a brush event, toggling the display of foreground lines*/
     function brush() {
         const actives = [];
@@ -179,7 +181,7 @@ function drawPCP(data) {
                         extent: d3.brushSelection(this)
                     });
             });
-        
+
         /*set un-brushed foreground line disappear*/
         foreground.style('display', function(d) {
             return actives.every(function(active) {
