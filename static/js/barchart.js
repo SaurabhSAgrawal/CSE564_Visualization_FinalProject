@@ -46,7 +46,6 @@ function drawBarchart(data, country_name) {
             }
         }
     }
-    console.log(beer, wine, spirits, other);
 
     max = Math.max(beer, wine, spirits, other);
 

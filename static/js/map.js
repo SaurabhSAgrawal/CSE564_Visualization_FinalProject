@@ -32,12 +32,12 @@ onload = function() {
     $('slider').oninput = function() {
         $('range').innerHTML = this.value;
         year = this.value;
-        console.log(year);
+        // console.log(year);
         for(i in dataByYear[year]) {
             var countryName = dataByYear[year][i].Country;
             data.set(countryName, +dataByYear[year][i].Life_Ladder);
         }
-        console.log(data);
+        // console.log(data);
         d3.select("#mapdiv").select("svg").select("g").selectAll("path").attr("fill", function (d) {
             d.total = data.get(d.properties.name) || 0;
             return colorScale(d.total);
@@ -122,9 +122,9 @@ function ready(error, topo) {
 
         country = d.properties.name;
         selected_country = country.toString();
-        console.log(d);
-        console.log(selected_country);
-        console.log(year);
+        // console.log(d);
+        // console.log(selected_country);
+        // console.log(year);
 
         svg_scat.selectAll("circle")
             .style("fill", function(d2) {

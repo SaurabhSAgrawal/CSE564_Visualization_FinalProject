@@ -30,9 +30,17 @@ function drawPCP(data) {
 
     for (i in dimensions) {
         attrName = dimensions[i]
+        var y_min = d3.min(data, function(d) {
+            if (d[attrName] == "null")  return 0;
+            else return +d[attrName]; });
+        var y_max = d3.max(data, function(d) {
+            if (d[attrName] == "null")  return 0;
+            else return +d[attrName]; });
+        console.log(attrName, y_min, y_max);
         y[attrName] = d3.scaleLinear()
-          .domain( d3.extent(data, function(d) { return +d[attrName]; }) )
-          .range([height - 30, 0])
+          // .domain( d3.extent(data, function(d) { return +d[attrName]; }) )
+          .domain([y_min, y_max])
+          .range([height - 30, 0]);
     }
     x.domain(dimensions);
 
