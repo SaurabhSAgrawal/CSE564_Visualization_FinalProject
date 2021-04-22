@@ -13,7 +13,6 @@ import re
 
 df = pd.read_csv("./data/merged.csv")
 df.fillna("null", inplace=True)
-print(df["Freedom_to_make_life_choices"].unique().tolist())
 attrs_total = df.columns.values.tolist()
 attrs_num = attrs_total[2:]
 
