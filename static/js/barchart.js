@@ -1,4 +1,4 @@
-var width_bar = 350, height_bar = 280;
+var width_bar = 350, height_bar = 300;
 var margin_bar = {top: 50, bottom: 30, left: 100, right: 30};
 var svg_width_bar = width_bar - margin_bar.left - margin_bar.right,
     svg_height_bar = height_bar - margin_bar.top - margin_bar.bottom;
@@ -8,7 +8,7 @@ var svg_bar = d3.select("#barchart")
         .attr("width", width_bar)
         .attr("height", height_bar)
     .append("g")
-        .attr("transform", "translate(" + (margin_bar.left - 55) + ", " + (margin_bar.top - 25) + ")");
+        .attr("transform", "translate(" + (margin_bar.left - 55) + ", " + (margin_bar.top - 20) + ")");
 
 $.post("/barchart", function(d) { drawBarchart(d[year], "none"); });
 
