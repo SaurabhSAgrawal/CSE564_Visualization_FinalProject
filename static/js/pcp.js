@@ -23,6 +23,15 @@ function drawPCP(data) {
     //     .style("text-anchor", "middle")
     //     .text("Parallel Coordinate Plot");
 
+    svg.append("text")
+            .attr("x", (svgWidth / 2))             
+            .attr("y", 15 )
+            .attr("text-anchor", "middle")  
+            .style("font-size", "16px")
+            .style("fill","#ccc") 
+            .style("text-decoration", "underline")  
+            .text("Parallel Coordinate Plot");
+
     var g = svg.append("g")
         .attr("transform", "translate(" + 5 + "," + 45 + ")");
 
@@ -46,13 +55,18 @@ function drawPCP(data) {
 
     var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-    // background = g.append("g")
-    //     .attr("class", "background_pcp")
-    //     .selectAll("path")
-    //     .data(data)
-    //     .enter().append("path")
-    //         .attr("class", "path_pcp")
-    //         .attr("d", path);
+    background = g.append("g")
+        .attr("class", "background_pcp")
+        .selectAll("path")
+        .data(data)
+        .enter().append("path")
+            .attr("class", "path_pcp")
+            .attr("d", path)
+            .style("stroke", function(d) {
+                //return "#08306B";
+                return "#222";
+                //return color(d.ClusterID + 1);
+            });
 
     foreground = g.append("g")
         .attr("class", "foreground_pcp")

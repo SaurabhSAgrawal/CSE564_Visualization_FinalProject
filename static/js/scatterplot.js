@@ -189,9 +189,11 @@ function drawScatterplot(data, x_attr, y_attr) {
             //     if (selected_countries.includes(d["country"])) return 2;
             //     else return 0;
             // });
+            getDataDrawPie();
     }
 
     function brushended() {
+        getDataDrawPie();
         if (!d3.event.selection) {
             emptyArray(selected_countries);
             svg_scat.selectAll("circle")

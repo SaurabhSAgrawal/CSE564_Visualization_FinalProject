@@ -3,18 +3,43 @@ var data = d3.map();
 var dataByYear = {};
 
 var selected_country = "none";
-$.post("/scatterplot", function(d) {
-    dataByYear = d;
-    for(i in dataByYear[2005]) {
-        var countryName = dataByYear[2005][i].Country;
-        data.set(countryName, +dataByYear[2005][i].Life_Ladder);
-    }
-    d3.select("#mapdiv").select("svg").select("g").selectAll("path").attr("fill", function (d) {
-        d.total = data.get(d.properties.name) || 0;
-        return colorScale(d.total);
-    })
-    drawPCP(dataByYear[2005]);
-});
+var max_ladder = -10;
+var min_ladder = 100;
+var max_country = "";
+var min_country = "";
+
+initMap();
+function initMap() {
+    $.post("/scatterplot", function(d) {
+        dataByYear = d;
+        for(i in dataByYear[year]) {
+            var countryName = dataByYear[year][i].Country;
+            var ladderScore = +dataByYear[year][i].Life_Ladder;
+            if(max_ladder < ladderScore) {
+                max_ladder = ladderScore;
+                max_country = countryName;
+            }
+            if(min_ladder > ladderScore) {
+                min_ladder = ladderScore;
+                min_country = countryName;
+            }
+            data.set(countryName, ladderScore);
+        }
+        d3.select("#mapdiv").select("svg").select("g").selectAll("path").attr("fill", function (d) {
+            d.total = data.get(d.properties.name) || 0;
+            return colorScale(d.total);
+        })
+        drawPCP(dataByYear[year]);
+        // d3.selectAll(".Country")
+        // .style("opacity", function(d) {if(d == max_country || d == min_country) {
+        //     return .5;
+        // }});
+        console.log(min_country);
+        console.log(max_country);
+        max_ladder = -10;
+        min_ladder = 100;
+    });
+}
 
 // var pcpData = {}
 // $.post("/pcp", function(d) {
@@ -26,7 +51,7 @@ var colorScale = d3.scaleLinear()
   .domain([2.3, 8])
   .range(["#F7FBFF", "#08306B"]);
 
-var year = 2005;
+var year = 2012;
 var year_prev = year;
 onload = function() {
     var $ = function(id) { return document.getElementById(id); };
@@ -36,7 +61,16 @@ onload = function() {
         // console.log(year);
         for(i in dataByYear[year]) {
             var countryName = dataByYear[year][i].Country;
-            data.set(countryName, +dataByYear[year][i].Life_Ladder);
+            var ladderScore = +dataByYear[year][i].Life_Ladder;
+            if(max_ladder < ladderScore) {
+                max_ladder = ladderScore;
+                max_country = countryName;
+            }
+            if(min_ladder > ladderScore) {
+                min_ladder = ladderScore;
+                min_country = countryName;
+            }
+            data.set(countryName, ladderScore);
         }
         // console.log(data);
         d3.select("#mapdiv").select("svg").select("g").selectAll("path").attr("fill", function (d) {
@@ -48,7 +82,12 @@ onload = function() {
             updateScatterplot();
             drawPCP(dataByYear[year]);
             updateBarchart();
+            getDataDrawPie();
             year_prev = year;
+            console.log(min_country);
+            console.log(max_country);
+            max_ladder = -10;
+            min_ladder = 100;
         }
     };
     $('slider').oninput();
@@ -94,7 +133,10 @@ d3.queue()
   .await(ready);
 
 function ready(error, topo) {
-
+    // d3.selectAll(".Country")
+    //     .style("opacity", function(d) {if(d == max_country || d == min_country) {
+    //         return 1;
+    //     }});
     let mouseOver = function(d) {
         d3.selectAll(".Country")
         .transition()
@@ -144,6 +186,7 @@ function ready(error, topo) {
             });
 
             updateBarchart();
+            getDataDrawPie();
         // d3.queue().defer(d3.json, "/getDataPerCountryPie?country="+selected_country)
         // .await(drawpie);
         // d3.queue().defer(d3.json, "/getDataSun?country="+selected_country)
@@ -164,7 +207,7 @@ function ready(error, topo) {
     )
     // set the color of each country
     .attr("fill", function (d) {
-        d.total = data.get("$" + d.properties.name) || 0;
+        d.total = data.get(d.properties.name) || 0;
         return colorScale(d.total);
     })
     .style("stroke", "transparent")
@@ -192,6 +235,7 @@ function reset() {
 
     selected_country = "none";
     updateBarchart();
+    getDataDrawPie();
 }
 
 function zoomed() {

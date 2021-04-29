@@ -36,7 +36,7 @@
             <div class="container" style="width: 100% !important;">
                 <div class="row">
                     <div class="col l12 s12">
-                        <h4 style="text-align: center;">World Happiness</h4>
+                        <h4 style="text-align: center; color:#222">World Happiness</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -89,8 +89,8 @@
                         <div class="card-panel" style="background-color: #222; height: 335px;">
                             <div id="mapdiv" style="margin-left: -13px;"></div>
                             <span style="color:#ccc">Year:</span>
-                            <input id="slider" type="range" min="2005" max="2020" value="2005" step="1" style="width: 530px;"/>
-                            <span id="range" style="color:#ccc">2005</span>
+                            <input id="slider" type="range" min="2005" max="2020" value="2012" step="1" style="width: 530px;"/>
+                            <span id="range" style="color:#ccc">2012</span>
                         </div>
                     </div>
                     <div class="col l3 s3">
@@ -103,6 +103,7 @@
                     <div class="col l3 s3">
                         <div class="card-panel" style="background-color: #222; height: 300px;">
                             <div id="piechart"></div>
+                            <div id="piechartlegend"></div>
                         </div>
                     </div>
                     <div class="col l6 s6">
@@ -123,6 +124,7 @@
         <script src= "{{ url_for('static', filename='js/scatterplot.js')}}"></script>
         <script src= "{{ url_for('static', filename='js/barchart.js')}}"></script>
         <script src= "{{ url_for('static', filename='js/pcp.js')}}"></script>
+        <script src= "{{ url_for('static', filename='js/pie.js')}}"></script>
         <script src = "{{ url_for('static', filename='js/materialize.min.js')}}"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/styles.css') }}">
 

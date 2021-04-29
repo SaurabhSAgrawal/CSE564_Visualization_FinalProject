@@ -10,8 +10,11 @@ from sklearn.cluster import KMeans
 from sklearn.manifold import MDS
 from sklearn.metrics import pairwise_distances
 import re
+from flask import request
 
 df = pd.read_csv("./data/merged_updated.csv")
+df_pie = pd.read_csv("./data/merged_updated.csv")
+df_pie.fillna(0, inplace=True)
 df.fillna("null", inplace=True)
 attrs_total = df.columns.values.tolist()
 attrs_num = attrs_total[2:]
@@ -49,6 +52,34 @@ def barchart():
         row = {attr: df[attr][i] for attr in ["Country"]+attrs_alcohol}
         alcohol_by_years[str(df["Year"][i])].append(row)
     return jsonify(alcohol_by_years)
+
+
+@app.route("/piechart", methods=['POST', 'GET'])
+def piechart():
+    year = request.form['year']
+    selected_countries = request.form.getlist('countrylist')
+    selected_country = request.form['country']
+    # print(year)
+    # print(selected_countries)
+    # print(selected_country)
+    # print(df_pie)
+    result = df_pie[df_pie['Year'] == int(year)]
+    if(len(selected_countries) > 0 or (selected_country != "none" and len(selected_country) > 0)):
+        print("here")
+        result = result[(result['Country'].isin(selected_countries)) | (
+            result['Country'] == selected_country)]
+    # print(result)
+    pos = result['Positive_affect'].sum(skipna=True)
+    neg = result['Negative_affect'].sum(skipna=True)
+    # print(pos)
+    # print(neg)
+    pos_percentage = pos * 100 / (pos + neg + 0.0000001)
+    pos_percentage = round(pos_percentage, 2)
+    neg_percentage = neg * 100 / (pos + neg + 0.0000001)
+    neg_percentage = round(neg_percentage, 2)
+    data = [{"name": "Positive Affect", "value": pos_percentage},
+            {"name": "Negative Affect", "value": neg_percentage}]
+    return jsonify(data)
 
 
 # @app.route("/pcp", methods=['POST', 'GET'])
