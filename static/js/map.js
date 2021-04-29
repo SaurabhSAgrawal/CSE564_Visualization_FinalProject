@@ -45,6 +45,8 @@ onload = function() {
         /* update scatterplot as year value changes */
         if (year_prev != year) {
             updateScatterplot();
+            updateBarchart();
+            updateLinechart();
             drawPCP(dataByYear[year]);
             year_prev = year;
         }
@@ -141,7 +143,8 @@ function ready(error, topo) {
                 else return 3 * Math.sqrt(d2["count"]);
             });
 
-            updateBarchart();
+        updateBarchart();
+        updateLinechart();
         // d3.queue().defer(d3.json, "/getDataPerCountryPie?country="+selected_country)
         // .await(drawpie);
         // d3.queue().defer(d3.json, "/getDataSun?country="+selected_country)
@@ -190,6 +193,7 @@ function reset() {
 
     selected_country = "none";
     updateBarchart();
+    updateLinechart();
 }
 
 function zoomed() {
