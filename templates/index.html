@@ -112,9 +112,28 @@
                         </div>
                     </div>
                     <div class="col l3 s3">
-                        <div class="card-panel" style="background-color: #222; height: 300px;">
-                            <div id="text1"></div>
-                            <div id=""></div>
+                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
+                            <div class="input-field col s12">
+                                <select multiple id="select_line_attrs">
+                                    <option value="Life_Ladder">life ladder</option>
+                                    <option value="Log_GDP_per_capita">log GDP per capita</option>
+                                    <option value="Social_support">social support</option>
+                                    <option value="Healthy_life_expectancy_at_birth" selected>healthy life expectancy at birth</option>
+                                    <option value="Freedom_to_make_life_choices">freedom to make life choices</option>
+                                    <option value="Generosity">generosity</option>
+                                    <option value="Perceptions_of_corruption">perceptions of corruption</option>
+                                    <option value="Positive_affect">positive affect</option>
+                                    <option value="Negative_affect">negative affect</option>
+                                    <option value="Alcohol_all">all (alcohol)</option>
+                                    <option value="Alcohol_beer">beer</option>
+                                    <option value="Alcohol_wine">wine</option>
+                                    <option value="Alcohol_spirits">spirits</option>
+                                    <option value="Alcohol_other">other (alcohol)</option>
+                                </select>
+                                <!-- <label></label> -->
+                            </div>
+                            <div id="linechart"></div>
+                            
                         </div>
                     </div>
                 </div>
@@ -125,6 +144,7 @@
         <script src= "{{ url_for('static', filename='js/barchart.js')}}"></script>
         <script src= "{{ url_for('static', filename='js/pcp.js')}}"></script>
         <script src= "{{ url_for('static', filename='js/pie.js')}}"></script>
+        <script src= "{{ url_for('static', filename='js/linechart.js')}}"></script>
         <script src = "{{ url_for('static', filename='js/materialize.min.js')}}"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='css/styles.css') }}">
 

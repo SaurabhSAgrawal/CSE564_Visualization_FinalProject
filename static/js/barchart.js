@@ -10,18 +10,34 @@ var svg_bar = d3.select("#barchart")
     .append("g")
         .attr("transform", "translate(" + (margin_bar.left - 55) + ", " + (margin_bar.top - 20) + ")");
 
-$.post("/barchart", function(d) { drawBarchart(d[year], "none"); });
+
+$.post("/barchart", function(d) { drawBarchart(d[year]); });
 
 function updateBarchart() {
     svg_bar.selectAll("*").remove();
-    $.post("/barchart", function(d) { drawBarchart(d[year], selected_country); });
+    $.post("/barchart", function(d) { drawBarchart(d[year]); });
 }
 
-function drawBarchart(data, country_name) {
+function drawBarchart(data) {
     var max = 0;
     var beer = 0, wine = 0, spirits = 0, other = 0;
 
-    if (country_name == "none") {
+    var barchart_title = "";
+
+    if (selected_countries.length > 0) {
+        barchart_title = "selected countries";
+        for (var i = 0; i < data.length; i++) {
+            if (selected_countries.includes(data[i]["Country"])) {
+                beer += data[i]["Alcohol_beer"];
+                wine += data[i]["Alcohol_wine"];
+                spirits += data[i]["Alcohol_spirits"];
+                other += data[i]["Alcohol_other"];
+            }
+        }
+    }
+
+    else if (selected_country == "none") {
+        barchart_title = "all countries";
         for (var i = 0; i < data.length; i++) {
             if (data[i]["Alcohol_beer"] != "null")
                 beer += data[i]["Alcohol_beer"];
@@ -36,8 +52,9 @@ function drawBarchart(data, country_name) {
     }
 
     else {
+        barchart_title = selected_country;
         for (var i = 0; i < data.length; i++) {
-            if (data[i]["Country"] == country_name) {
+            if (data[i]["Country"] == selected_country) {
                 beer = data[i]["Alcohol_beer"];
                 wine = data[i]["Alcohol_wine"];
                 spirits = data[i]["Alcohol_spirits"];
@@ -46,6 +63,7 @@ function drawBarchart(data, country_name) {
             }
         }
     }
+
 
     max = Math.max(beer, wine, spirits, other);
 
@@ -78,7 +96,7 @@ function drawBarchart(data, country_name) {
         .attr("font-weight", "bold")
         .attr("transform", "translate(" + (svg_width_bar/2) + ", " + (-10) + ")")
         .style("text-anchor", "middle")
-        .text(selected_country.replaceAll("none", "all countries"));
+        .text(barchart_title);
 
     svg_bar.append("text")
         .attr("id", "graph_type")
@@ -89,15 +107,16 @@ function drawBarchart(data, country_name) {
         .style("text-anchor", "middle")
         .text("alcohol consumption");
 
-    svg_bar.selectAll("rect")
-        .attr("id", "bars")
-        .data([beer, wine, spirits, other])
-        .enter()
-        .append("rect")
-        .attr("transform", function(d, i) { return "translate("+(x(alcohol_labels[i])+svg_width_bar/16)+","+y(d)+")"})
-        .attr("width", svg_width_bar/8)
-        .attr("height", function(d) { return svg_height_bar-y(d); })
-        .style("fill", light_blue);
+    if (beer > 0 || wine > 0 || spirits > 0 || other > 0)
+        svg_bar.selectAll("rect")
+            .attr("id", "bars")
+            .data([beer, wine, spirits, other])
+            .enter()
+            .append("rect")
+            .attr("transform", function(d, i) { return "translate("+(x(alcohol_labels[i])+svg_width_bar/16)+","+y(d)+")"})
+            .attr("width", svg_width_bar/8)
+            .attr("height", function(d) { return svg_height_bar-y(d); })
+            .style("fill", light_blue);
 
         // .attr("x", function(d, i) { return i*x.bandwidth()/4; })
         // .attr("y", svg_)

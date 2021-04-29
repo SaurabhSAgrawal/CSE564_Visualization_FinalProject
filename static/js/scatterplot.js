@@ -15,11 +15,11 @@ var x_attr = "Life_Ladder",
     y_attr = "Healthy_life_expectancy_at_birth";
 
 var selected_countries = [];
-var options = [];
+var attributes = [];
 
 $.post("/attributes", function(d) {
     for (var i = 0; i < d["attributes"].length; i++) {
-        options.push(d["attributes"][i]);
+        attributes.push(d["attributes"][i]);
     }
 });
 
@@ -189,7 +189,9 @@ function drawScatterplot(data, x_attr, y_attr) {
             //     if (selected_countries.includes(d["country"])) return 2;
             //     else return 0;
             // });
-            getDataDrawPie();
+        getDataDrawPie();
+        updateBarchart();
+        updateLinechart();
     }
 
     function brushended() {
@@ -203,6 +205,7 @@ function drawScatterplot(data, x_attr, y_attr) {
                 .style("fill", white);
             /* UPDATE OTHER PLOTS */
         }
+        updateLinechart();
     }
 }
 
