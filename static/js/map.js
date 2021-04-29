@@ -13,6 +13,7 @@ $.post("/scatterplot", function(d) {
         d.total = data.get(d.properties.name) || 0;
         return colorScale(d.total);
     })
+    drawPCP(dataByYear[2005]);
 });
 
 // var pcpData = {}
@@ -48,6 +49,7 @@ onload = function() {
             updateBarchart();
             updateLinechart();
             drawPCP(dataByYear[year]);
+            updateBarchart();
             year_prev = year;
         }
     };
@@ -131,7 +133,7 @@ function ready(error, topo) {
         svg_scat.selectAll("circle")
             .style("fill", function(d2) {
                 if (d2["country"] == selected_country) {
-                    return orange;
+                    return "#768daf";
                 }
                 else {
                     return white;

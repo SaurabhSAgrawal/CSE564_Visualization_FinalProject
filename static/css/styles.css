@@ -1,6 +1,6 @@
 body {
-  background-color: #222;
-  color: #ccc;
+  background-color: #ccc;
+  color: #222;
 }
 
 .axisWhite line,
@@ -179,7 +179,7 @@ text {
 }
 
 .background {
-  fill: none;
+  fill: #222;
   pointer-events: all;
 }
 

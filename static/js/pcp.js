@@ -24,7 +24,7 @@ function drawPCP(data) {
     //     .text("Parallel Coordinate Plot");
 
     var g = svg.append("g")
-        .attr("transform", "translate(" + 5 + "," + 60 + ")");
+        .attr("transform", "translate(" + 5 + "," + 45 + ")");
 
     dimensions = d3.keys(data[0]).filter(function(d) { return d != "Country" });
 
@@ -109,7 +109,7 @@ function drawPCP(data) {
             .style("font-size", "12px")
             .style("fill", "white")
             .attr("y", -9)
-            .attr("transform", "rotate(323)")
+            .attr("transform", "rotate(343)")
             .text(function(d) { return d; });
 
     /*Add and store a brush for each axis*/

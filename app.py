@@ -6,7 +6,7 @@ from sklearn.preprocessing import MinMaxScaler
 import re
 import json
 
-df = pd.read_csv("./data/merged.csv")
+df = pd.read_csv("./data/merged_updated.csv")
 df.fillna("null", inplace=True)
 attrs_total = df.columns.values.tolist()
 attrs_num = attrs_total[2:]
@@ -52,7 +52,7 @@ def barchart():
     alcohol_by_years = {str(year): [] for year in years}
     attrs_alcohol = attrs_num[-4:]
     for i in range(df.shape[0]):
-        row ={attr: df[attr][i] for attr in ["Country"]+attrs_alcohol}
+        row = {attr: df[attr][i] for attr in ["Country"]+attrs_alcohol}
         alcohol_by_years[str(df["Year"][i])].append(row)
     return jsonify(alcohol_by_years)
 
@@ -123,7 +123,5 @@ def linechart():
     # data = {'pcpData': data}
     # print(data)
     # return jsonify(data)
-
-
 if __name__ == "__main__":
     app.run(debug=True)
