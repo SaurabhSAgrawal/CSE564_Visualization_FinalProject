@@ -1,5 +1,6 @@
 var line_attrs = ["Healthy_life_expectancy_at_birth"];
 
+
 var width_line = 350, height_line = 280;
 var margin_line = {top: 50, bottom: 30, left: 100, right: 30};
 var svg_width_line = width_line - margin_line.left - margin_line.right,
@@ -11,12 +12,6 @@ var svg_line = d3.select("#linechart")
         .attr("height", height_line)
     .append("g")
         .attr("transform", "translate(" + (margin_line.left - 55) + ", " + (margin_line.top - 25) + ")");
-
-// var tip_line = d3.tip()
-//                 .attr('class', 'd3-tip')
-//                 .offset([-10, 0])
-//                 .html(function(d) { return "<strong>"+d["attr"]+"</strong>"; });
-// svg_line.call(tip_line);
 
 $.post("/linechart", function(d) { drawLinechart(d); });
 
@@ -33,13 +28,10 @@ d3.select("#select_line_attrs")
             if (!line_attrs.includes(attr))
                 svg_line.selectAll("#label_"+attr).remove();
         updateLinechart();
-    })
-
-
-
+    });
 
 function updateLinechart() {
-    svg_line.selectAll("#data_line").remove();
+    // svg_line.selectAll("path").remove();
     svg_line.selectAll("#country_name").remove();
     $.post("/linechart", function(d) { drawLinechart(d); });
 }
@@ -48,8 +40,6 @@ function drawLinechart(data) {
     var max = 0;
     var linechart_title = "";
     var attr_values = new Map();
-    // for (var attr of line_attrs)
-    //     attr_values[attr] = 0;
     var years = [];
     for (var year = 2005; year < 2021; year++)
         years.push(year.toString());
@@ -65,7 +55,6 @@ function drawLinechart(data) {
 
 
             for (var year of Object.keys(data[attr])) {
-                // year = parseInt(year);
                 var country_count = 0;
                 for (var country of Object.keys(data[attr][year])) {
                     if (selected_countries.includes(country)) {
@@ -87,7 +76,6 @@ function drawLinechart(data) {
                     attr_values[attr].push({"year": year, "value": attr_year_values[year]});
             }
         }
-        // console.log(attr_values);
     }
 
     else if (selected_country == "none") {
@@ -116,9 +104,7 @@ function drawLinechart(data) {
                 if (attr_year_values[year] != "null")
                     attr_values[attr].push({"year": year, "value": attr_year_values[year]});
             }
-            // console.log(attr_values[attr]);
         }
-        // console.log(attr_values);
     }
 
     else {
@@ -143,7 +129,6 @@ function drawLinechart(data) {
                     attr_values[attr].push({"year": year, "value": attr_year_values[year]});
             }
         }
-        // console.log(attr_values);
     }
 
 
@@ -169,7 +154,6 @@ function drawLinechart(data) {
         .attr("class", "axisWhite")
         .attr("id", "y_axis")
         .call(d3.axisLeft(y));
-// selected_country.replaceAll("none", "all countries")
 
     svg_line.append("text")
         .attr("id", "country_name")
@@ -178,25 +162,6 @@ function drawLinechart(data) {
         .attr("transform", "translate(" + (svg_width_line/2) + ", " + (-10) + ")")
         .style("text-anchor", "middle")
         .text(linechart_title);
-
-    // svg_line.append("text")
-    //     .attr("id", "graph_type")
-    //     .attr("font-family", "arial")
-    //     .attr("transform", "rotate(270)")
-    //     .attr("x", 0 - (svg_height_line / 2))
-    //     .attr("y", 0 - margin_line.left/2+20)
-    //     .style("text-anchor", "middle")
-    //     .text("alcohol consumption");
-
-    // svg_line.selectAll("rect")
-    //     .attr("id", "bars")
-    //     .data([beer, wine, spirits, other])
-    //     .enter()
-    //     .append("rect")
-    //     .attr("transform", function(d, i) { return "translate("+(x(alcohol_labels[i])+svg_width_line/16)+","+y(d)+")"})
-    //     .attr("width", svg_width_line/8)
-    //     .attr("height", function(d) { return svg_height_line-y(d); })
-    //     .style("fill", light_blue);
 
     for (var attr of line_attrs) {
         svg_line.append("path")

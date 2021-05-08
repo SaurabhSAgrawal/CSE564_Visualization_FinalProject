@@ -24,12 +24,12 @@ function drawPCP(data) {
     //     .text("Parallel Coordinate Plot");
 
     svg.append("text")
-            .attr("x", (svgWidth / 2))             
+            .attr("x", (svgWidth / 2))
             .attr("y", 15 )
-            .attr("text-anchor", "middle")  
+            .attr("text-anchor", "middle")
             .style("font-size", "16px")
-            .style("fill","#ccc") 
-            .style("text-decoration", "underline")  
+            .style("fill","#ccc")
+            .style("text-decoration", "underline")
             .text("Parallel Coordinate Plot");
 
     var g = svg.append("g")
@@ -79,7 +79,8 @@ function drawPCP(data) {
                 //return "#08306B";
                 return pcp_blue;
                 //return color(d.ClusterID + 1);
-            });
+            })
+            .style("opacity", 0.3);
 
     /* Add a group element for each dimension*/
     g = g.selectAll(".dimension")
