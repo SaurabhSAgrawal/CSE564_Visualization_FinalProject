@@ -112,9 +112,9 @@
                         </div>
                     </div>
                     <div class="col l3 s3">
-                        <div class="card-panel" style="background-color: #201a1657; height: 300px;">
+                        <div class="card-panel" style="background-color: #222; height: 300px;">
                             <div class="input-field col s12">
-                                <select multiple id="select_line_attrs">
+                                <select multiple id="select_line_attrs" onmousedown="if(this.options.length>5){this.size=5;}" onchange='this.size=0;' onblur="this.size=0;">
                                     <option value="Life_Ladder">life ladder</option>
                                     <option value="Log_GDP_per_capita">log GDP per capita</option>
                                     <option value="Social_support">social support</option>

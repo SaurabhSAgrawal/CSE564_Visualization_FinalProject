@@ -15,6 +15,7 @@ var x_attr = "Life_Ladder",
     y_attr = "Healthy_life_expectancy_at_birth";
 
 var selected_countries = [];
+var temp_array = [];
 var attributes = [];
 
 $.post("/attributes", function(d) {
@@ -162,6 +163,7 @@ function drawScatterplot(data, x_attr, y_attr) {
             });
 
     function brushed() {
+        if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return;  
         emptyArray(selected_countries);
 
         var s = d3.event.selection,
@@ -189,13 +191,19 @@ function drawScatterplot(data, x_attr, y_attr) {
             //     if (selected_countries.includes(d["country"])) return 2;
             //     else return 0;
             // });
-        getDataDrawPie();
-        updateBarchart();
-        updateLinechart();
+        if (arrayEqual(selected_countries, temp_array)) {
+            updateBarchart();
+            updateLinechart();
+            getDataDrawPie();
+            emptyArray(temp_array);
+            for (var country of selected_countries)
+                temp_array.push(country);
+        }
+        //d3.event.stopPropagation();
+        //d3.event.sourceEvent.stopPropagation();
     }
 
     function brushended() {
-        getDataDrawPie();
         if (!d3.event.selection) {
             emptyArray(selected_countries);
             svg_scat.selectAll("circle")
@@ -206,6 +214,7 @@ function drawScatterplot(data, x_attr, y_attr) {
             /* UPDATE OTHER PLOTS */
         }
         updateLinechart();
+        getDataDrawPie();
     }
 }
 
@@ -221,4 +230,9 @@ function removeFromArray(array, element) {
         array.splice(index, 1);
         index = array.indexOf(element);
     }
+}
+
+function arrayEqual(a, b) {
+    a.sort(); b.sort();
+    return JSON.stringify(a) == JSON.stringify(b);
 }
