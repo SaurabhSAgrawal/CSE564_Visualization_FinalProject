@@ -161,8 +161,11 @@ function drawScatterplot(data, x_attr, y_attr) {
             .attr("cy", function(d) { return y(d["y_val"]); })
             .attr("r", function(d) { return 5 * Math.sqrt(d["count"]); })
             .style("fill", function(d) {
-                if (color_theme == "whole")
-                    return white;
+                if (color_theme == "whole") {
+                    if (d["country"] == max_country)        return "#ff004b";
+                    else if (d["country"] == min_country)   return "#ffff00";
+                    else return white;
+                }
                 else return continent_colors[d["continent"]];
              })
             .on("mouseover", function(d) {
@@ -198,8 +201,11 @@ function drawScatterplot(data, x_attr, y_attr) {
                  && y(d["y_val"]) >= y0 && y(d["y_val"]) <= y0 + dy) {
                      selected_countries.push(d["country"]);
                      /* UPDATE OTHER PLOTS */
-                     if (color_theme == "whole")
-                         return white;
+                     if (color_theme == "whole") {
+                         if (d["country"] == max_country)        return "#ff004b";
+                         else if (d["country"] == min_country)   return "#ffff00";
+                         else return white;
+                     }
                      else return continent_colors[d["continent"]];
                  }
                  else  {
@@ -231,8 +237,12 @@ function drawScatterplot(data, x_attr, y_attr) {
                 .ease(d3.easeLinear)
                 // .style("fill", white);
                 .style("fill", function(d) {
-                    if (color_theme == "whole")
-                        return white;
+                    if (color_theme == "whole") {
+                        console.log(d);
+                        if (d["country"] == max_country)        return "#ff004b";
+                        else if (d["country"] == min_country)   return "#ffff00";
+                        else return white;
+                    }
                     else return continent_colors[d["continent"]]; });
             /* UPDATE OTHER PLOTS */
         }

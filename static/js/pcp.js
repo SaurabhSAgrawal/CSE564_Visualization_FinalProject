@@ -88,8 +88,11 @@ function drawPCP(data) {
                 //return "#08306B";
                 // return pcp_blue; here
                 //return color(d.ClusterID + 1);
-                if (color_theme == "whole")
-                    return white;
+                if (color_theme == "whole") {
+                    if (d["Country"] == max_country)        return "#ff004b";
+                    else if (d["Country"] == min_country)   return "#ffff00";
+                    else return white;
+                }
                 else return continent_colors[d["Continent"]];
             })
             .style("opacity", 0.3);
