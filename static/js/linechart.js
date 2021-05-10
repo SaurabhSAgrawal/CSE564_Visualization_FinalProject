@@ -40,6 +40,7 @@ function updateLinechart() {
 }
 
 function drawLinechart(data) {
+    d3.selectAll(".linechart_svg").remove();
     svg_line = d3.select("#linechart")
     .append("svg")
         .attr("class", "linechart_svg")
