@@ -33,6 +33,7 @@ d3.select("#select_line_attrs")
 function updateLinechart() {
     // svg_line.selectAll("path").remove();
     svg_line.selectAll("#country_name").remove();
+    d3.selectAll("#data_line").remove();
     $.post("/linechart", function(d) { drawLinechart(d); });
 }
 
@@ -109,7 +110,7 @@ function drawLinechart(data) {
 
     else {
         linechart_title = selected_country;
-
+        console.log(selected_country);
         for (var attr of line_attrs) {
             var attr_year_values = new Map();
 

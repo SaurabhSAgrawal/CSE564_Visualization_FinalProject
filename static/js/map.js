@@ -191,6 +191,8 @@ function ready(error, topo) {
 
         updateBarchart();
         getDataDrawPie();
+        for (var attr of line_attrs)
+            svg_line.selectAll("#label_"+attr).remove();
         updateLinechart();
         // d3.queue().defer(d3.json, "/getDataPerCountryPie?country="+selected_country)
         // .await(drawpie);
