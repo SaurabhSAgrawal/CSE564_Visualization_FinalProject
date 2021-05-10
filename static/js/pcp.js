@@ -43,7 +43,7 @@ function drawPCP(data) {
             y[attrName] = d3.scaleBand()
               .domain(data.map(function(p) { return p[attrName]; }))
               .range([height - 30, 0]);
-   
+
         }
         else {
             var y_min = d3.min(data, function(d) {
@@ -73,9 +73,11 @@ function drawPCP(data) {
                 //return "#08306B";
                 return "#222";
                 //return color(d.ClusterID + 1);
+                // return continent_colors[d["Continent"]];
             });
 
     foreground = g.append("g")
+        .attr("id", "pathsss")
         .attr("class", "foreground_pcp")
         .selectAll("path")
         .data(data)
@@ -84,8 +86,11 @@ function drawPCP(data) {
             .attr("class", "path_pcp")
             .style("stroke", function(d) {
                 //return "#08306B";
-                return pcp_blue;
+                // return pcp_blue; here
                 //return color(d.ClusterID + 1);
+                if (color_theme == "whole")
+                    return white;
+                else return continent_colors[d["Continent"]];
             })
             .style("opacity", 0.3);
 
@@ -223,6 +228,6 @@ function drawPCP(data) {
     }
 
     function brushend() {
-        
+
     }
 }
