@@ -191,12 +191,12 @@ function drawScatterplot(data, x_attr, y_attr) {
             //     if (selected_countries.includes(d["country"])) return 2;
             //     else return 0;
             // });
-        getDataDrawPie();
-        updateBarchart();
-        for (var attr of line_attrs)
-            svg_line.selectAll("#label_"+attr).remove();
-        // svg_line.selectAll("path").remove();
-        updateLinechart();
+        // getDataDrawPie();
+        // updateBarchart();
+        // for (var attr of line_attrs)
+        //     svg_line.selectAll("#label_"+attr).remove();
+        // // svg_line.selectAll("path").remove();
+        // updateLinechart();
     }
 
     function brushended() {
