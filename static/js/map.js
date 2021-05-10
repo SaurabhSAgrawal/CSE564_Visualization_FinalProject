@@ -83,6 +83,7 @@ onload = function() {
             //updateLinechart();
             for (var attr in line_attrs)
                 svg_line.selectAll("#label_"+attr).remove();
+            selected_country = "none";
             updateLinechart();
             drawPCP(dataByYear[year]);
             updateBarchart();
