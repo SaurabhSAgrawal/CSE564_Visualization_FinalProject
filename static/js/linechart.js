@@ -5,13 +5,14 @@ var width_line = 350, height_line = 280;
 var margin_line = {top: 50, bottom: 30, left: 100, right: 30};
 var svg_width_line = width_line - margin_line.left - margin_line.right,
     svg_height_line = height_line - margin_line.top - margin_line.bottom;
-
-var svg_line = d3.select("#linechart")
-    .append("svg")
-        .attr("width", width_line)
-        .attr("height", height_line)
-    .append("g")
-        .attr("transform", "translate(" + (margin_line.left - 55) + ", " + (margin_line.top - 25) + ")");
+var svg_line = "";
+// var svg_line = d3.select("#linechart")
+//     .append("svg")
+//         .attr("class", "linechart_svg")
+//         .attr("width", width_line)
+//         .attr("height", height_line)
+//     .append("g")
+//         .attr("transform", "translate(" + (margin_line.left - 55) + ", " + (margin_line.top - 25) + ")");
 
 $.post("/linechart", function(d) { drawLinechart(d); });
 
@@ -32,12 +33,20 @@ d3.select("#select_line_attrs")
 
 function updateLinechart() {
     // svg_line.selectAll("path").remove();
+    d3.selectAll(".linechart_svg").remove();
     svg_line.selectAll("#country_name").remove();
     d3.selectAll("#data_line").remove();
     $.post("/linechart", function(d) { drawLinechart(d); });
 }
 
 function drawLinechart(data) {
+    svg_line = d3.select("#linechart")
+    .append("svg")
+        .attr("class", "linechart_svg")
+        .attr("width", width_line)
+        .attr("height", height_line)
+    .append("g")
+        .attr("transform", "translate(" + (margin_line.left - 55) + ", " + (margin_line.top - 25) + ")");
     var max = 0;
     var linechart_title = "";
     var attr_values = new Map();
