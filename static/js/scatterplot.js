@@ -195,7 +195,7 @@ function drawScatterplot(data, x_attr, y_attr) {
         updateBarchart();
         for (var attr of line_attrs)
             svg_line.selectAll("#label_"+attr).remove();
-        svg_line.selectAll("path").remove();
+        // svg_line.selectAll("path").remove();
         updateLinechart();
     }
 
@@ -209,9 +209,12 @@ function drawScatterplot(data, x_attr, y_attr) {
                 .style("fill", white);
             /* UPDATE OTHER PLOTS */
         }
+        
+        selected_country = "none";
         for (var attr of line_attrs)
             svg_line.selectAll("#label_"+attr).remove();
         updateLinechart();
+        updateBarchart();
         getDataDrawPie();
     }
 }

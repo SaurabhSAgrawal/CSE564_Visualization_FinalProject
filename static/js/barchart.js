@@ -23,15 +23,18 @@ function drawBarchart(data) {
     var beer = 0, wine = 0, spirits = 0, other = 0;
 
     var barchart_title = "";
-
     if (selected_countries.length > 0) {
         barchart_title = "selected countries";
         for (var i = 0; i < data.length; i++) {
             if (selected_countries.includes(data[i]["Country"])) {
-                beer += data[i]["Alcohol_beer"];
-                wine += data[i]["Alcohol_wine"];
-                spirits += data[i]["Alcohol_spirits"];
-                other += data[i]["Alcohol_other"];
+                if (data[i]["Alcohol_beer"] != "null")
+                    beer += data[i]["Alcohol_beer"];
+                if (data[i]["Alcohol_wine"] != "null")
+                    wine += data[i]["Alcohol_wine"];
+                if (data[i]["Alcohol_spirits"] != "null")
+                    spirits += data[i]["Alcohol_spirits"];
+                if (data[i]["Alcohol_other"] != "null")
+                    other += data[i]["Alcohol_other"];
             }
         }
     }
@@ -45,9 +48,8 @@ function drawBarchart(data) {
                 wine += data[i]["Alcohol_wine"];
             if (data[i]["Alcohol_spirits"] != "null")
                 spirits += data[i]["Alcohol_spirits"];
-            if (data[i]["Alcohol_other"] != "null") {
+            if (data[i]["Alcohol_other"] != "null")
                 other += data[i]["Alcohol_other"];
-            }
         }
     }
 
@@ -55,10 +57,14 @@ function drawBarchart(data) {
         barchart_title = selected_country;
         for (var i = 0; i < data.length; i++) {
             if (data[i]["Country"] == selected_country) {
-                beer = data[i]["Alcohol_beer"];
-                wine = data[i]["Alcohol_wine"];
-                spirits = data[i]["Alcohol_spirits"];
-                other = data[i]["Alcohol_other"];
+                if (data[i]["Alcohol_beer"] != "null")
+                    beer += data[i]["Alcohol_beer"];
+                if (data[i]["Alcohol_wine"] != "null")
+                    wine += data[i]["Alcohol_wine"];
+                if (data[i]["Alcohol_spirits"] != "null")
+                    spirits += data[i]["Alcohol_spirits"];
+                if (data[i]["Alcohol_other"] != "null")
+                    other += data[i]["Alcohol_other"];
                 break;
             }
         }

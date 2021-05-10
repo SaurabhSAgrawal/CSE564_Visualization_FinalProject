@@ -42,7 +42,7 @@ def attributes():
 @app.route("/barchart", methods=['POST', 'GET'])
 def barchart():
     alcohol_by_years = {str(year): [] for year in years}
-    attrs_alcohol = attrs_num[-4:]
+    attrs_alcohol = attrs_num[-5:-1]
     for i in range(df.shape[0]):
         row = {attr: df[attr][i] for attr in ["Country"]+attrs_alcohol}
         alcohol_by_years[str(df["Year"][i])].append(row)
