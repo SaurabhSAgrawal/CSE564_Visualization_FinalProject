@@ -52,7 +52,7 @@ def barchart():
 @app.route("/piechart", methods=['POST', 'GET'])
 def piechart():
     year = request.form['year']
-    selected_countries = request.form.getlist('countrylist')
+    selected_countries = request.form.getlist('countrylist[]')
     selected_country = request.form['country']
     # print(year)
     # print(selected_countries)
