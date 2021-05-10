@@ -35,11 +35,11 @@ function drawPCP(data) {
     var g = svg.append("g")
         .attr("transform", "translate(" + 5 + "," + 45 + ")");
 
-    dimensions = d3.keys(data[0]).filter(function(d) { return d != "Country" });
+    dimensions = d3.keys(data[0]).filter(function(d) { return (d != "Country" && d != "Alcohol_beer" && d != "Alcohol_wine" && d != "Alcohol_spirits" && d != "Alcohol_other") });
 
     for (i in dimensions) {
         attrName = dimensions[i]
-        if (attrName != "country")
+        if (attrName != "Country")
         var y_min = d3.min(data, function(d) {
             if (d[attrName] == "null")  return 0;
             else return +d[attrName]; });
