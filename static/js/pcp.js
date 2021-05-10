@@ -39,17 +39,24 @@ function drawPCP(data) {
 
     for (i in dimensions) {
         attrName = dimensions[i]
-        if (attrName != "Country")
-        var y_min = d3.min(data, function(d) {
-            if (d[attrName] == "null")  return 0;
-            else return +d[attrName]; });
-        var y_max = d3.max(data, function(d) {
-            if (d[attrName] == "null")  return 0;
-            else return +d[attrName]; });
-        y[attrName] = d3.scaleLinear()
-          // .domain( d3.extent(data, function(d) { return +d[attrName]; }) )
-          .domain([y_min, y_max])
-          .range([height - 30, 0]);
+        if(attrName == "Continent") {
+            y[attrName] = d3.scaleBand()
+              .domain(data.map(function(p) { return p[attrName]; }))
+              .range([height - 30, 0]);
+   
+        }
+        else {
+            var y_min = d3.min(data, function(d) {
+                if (d[attrName] == "null")  return 0;
+                else return +d[attrName]; });
+            var y_max = d3.max(data, function(d) {
+                if (d[attrName] == "null")  return 0;
+                else return +d[attrName]; });
+            y[attrName] = d3.scaleLinear()
+            // .domain( d3.extent(data, function(d) { return +d[attrName]; }) )
+            .domain([y_min, y_max])
+            .range([height - 30, 0]);
+        }
     }
     x.domain(dimensions);
 
@@ -125,7 +132,7 @@ function drawPCP(data) {
             .style("fill", "white")
             .attr("y", -9)
             .attr("transform", "rotate(343)")
-            .text(function(d) { return d; });
+            .text(function(d) { return d.toLowerCase().replaceAll("_", " ").replace("gdp", "GDP"); });
 
     /*Add and store a brush for each axis*/
     g.append("g")
@@ -136,6 +143,7 @@ function drawPCP(data) {
                                             .extent([[-8, y[d].range()[1]], [8, y[d].range()[0]]])
                                                 .on("start", brushstart)
                                                 .on("brush", brush)
+                                                .on("end", brushend)
                     );
         })
         .selectAll("rect")
@@ -212,5 +220,9 @@ function drawPCP(data) {
             return active.extent[0] <= y[dim](d[dim]) && y[dim](d[dim]) <= active.extent[1];
             }) ? null : 'none';
         });
+    }
+
+    function brushend() {
+        
     }
 }
