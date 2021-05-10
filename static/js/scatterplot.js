@@ -191,16 +191,12 @@ function drawScatterplot(data, x_attr, y_attr) {
             //     if (selected_countries.includes(d["country"])) return 2;
             //     else return 0;
             // });
-        if (arrayEqual(selected_countries, temp_array)) {
-            updateBarchart();
-            updateLinechart();
-            getDataDrawPie();
-            emptyArray(temp_array);
-            for (var country of selected_countries)
-                temp_array.push(country);
-        }
-        //d3.event.stopPropagation();
-        //d3.event.sourceEvent.stopPropagation();
+        getDataDrawPie();
+        updateBarchart();
+        for (var attr of line_attrs)
+            svg_line.selectAll("#label_"+attr).remove();
+        svg_line.selectAll("path").remove();
+        updateLinechart();
     }
 
     function brushended() {
@@ -213,6 +209,8 @@ function drawScatterplot(data, x_attr, y_attr) {
                 .style("fill", white);
             /* UPDATE OTHER PLOTS */
         }
+        for (var attr of line_attrs)
+            svg_line.selectAll("#label_"+attr).remove();
         updateLinechart();
         getDataDrawPie();
     }

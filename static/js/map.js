@@ -81,7 +81,9 @@ onload = function() {
         if (year_prev != year) {
             updateScatterplot();
             updateBarchart();
-            updateLinechart();
+            // for (var attr in line_attrs)
+            //     svg_line.selectAll("#label_"+attr).remove();
+            // updateLinechart();
             drawPCP(dataByYear[year]);
             updateBarchart();
             getDataDrawPie();
