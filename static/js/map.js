@@ -402,7 +402,7 @@ function reset() {
                 else if (d2["country"] == min_country)   return "#ffff00";
                 else return white;
             }
-            else return continent_colors[d["Continent"]];
+            else return continent_colors[d2["continent"]];
          })
         .attr("r", function(d2) { return 5 * Math.sqrt(d2["count"]); });
 
