@@ -62,21 +62,19 @@ $(document).ready(function() {
                 else return continent_colors[d["continent"]];
             });
 
-        d3.select("#pcp")
-            .select("svg")
-            .select("g")
-            .selectAll("foreground_pcp")
-            .style("stroke", function(d) {
-                if (typeof d == undefined || d == null)
-                    return white;
-                if (color_theme == "whole") {
-                    if (d["Country"] == max_country)        return "#ff004b";
-                    else if (d["Country"] == min_country)   return "#ffff00";
-                    else return white;
-                }
-                else return continent_colors[d["Continent"]];
-            })
-            .style("opacity", 0);
+        foreground.style("stroke", function(d) {
+                 if (typeof d == undefined || d == null)
+                     return white;
+                 if (color_theme == "whole")
+                     return white;
+                 if (color_theme == "whole") {
+                     if (d["Country"] == max_country)        return "#ff004b";
+                     else if (d["Country"] == min_country)   return "#ffff00";
+                     else return white;
+                 }
+                 else return continent_colors[d["Continent"]];
+             })
+             .style("opacity", 0.3);
 
         d3.select("#mapdiv")
             .select("svg")
