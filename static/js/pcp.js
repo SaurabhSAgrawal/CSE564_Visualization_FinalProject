@@ -13,7 +13,7 @@ document.body.onmouseup = function() {
 function drawPCP(data) {
     d3.selectAll(".svg_pcp").remove();
 
-    var margin = 40, svgWidth = 680, svgHeight = 280, width = svgWidth - margin, height = svgHeight - margin;
+    var margin = 40, svgWidth = 640, svgHeight = 280, width = svgWidth - margin, height = svgHeight - margin;
 
     var x = d3.scalePoint().range([0, width]).padding(0.5);
     var y = {};
@@ -44,15 +44,15 @@ function drawPCP(data) {
             .text("Parallel Coordinate Plot");
 
     var g = svg.append("g")
-        .attr("transform", "translate(" + 5 + "," + 45 + ")");
+        .attr("transform", "translate(" + 40 + "," + 45 + ")");
 
-    dimensions = d3.keys(data[0]).filter(function(d) { return (d != "Country" && d != "Alcohol_beer" && d != "Alcohol_wine" && d != "Alcohol_spirits" && d != "Alcohol_other") });
-
+    dimensions = d3.keys(data[0]).filter(function(d) { return (d != "Country" && d != "Alcohol_beer" && d != "Alcohol_wine" && d != "Alcohol_spirits" && d != "Alcohol_other" && d != "Positive_affect" && d != "Negative_affect") });
+    dimensions= ["Continent", "Generosity", "Log_GDP_per_capita", "Life_Ladder", "Perceptions_of_corruption", "Alcohol_all", "Freedom_to_make_life_choices", "Social_support"];
     for (i in dimensions) {
         attrName = dimensions[i]
         if(attrName == "Continent") {
             y[attrName] = d3.scaleBand()
-              .domain(data.map(function(p) { return p[attrName]; }))
+              .domain(["Africa", "Europe", "North America", "South America", "Oceania"])
               .range([height - 30, 0]);
 
         }
@@ -106,7 +106,7 @@ function drawPCP(data) {
                 }
                 else return continent_colors[d["Continent"]];
             })
-            .style("opacity", 0.3);
+            .style("opacity", 0.4);
 
     /* Add a group element for each dimension*/
     g = g.selectAll(".dimension")
@@ -235,14 +235,17 @@ function drawPCP(data) {
         /*set un-brushed foreground line disappear*/
         foreground.style('display', function(d) {
             return actives.every(function(active) {
-            const dim = active.dimension;
-            return active.extent[0] <= y[dim](d[dim]) && y[dim](d[dim]) <= active.extent[1];
+                const dim = active.dimension;
+                return active.extent[0] <= y[dim](d[dim]) && y[dim](d[dim]) <= active.extent[1];
             }) ? null : 'none';
         });
     }
 
     function brushend() {
-        if (!d3.event.selection)
-        foreground.style("display", null);
+        if (!d3.event.selection) {
+            foreground.style("display", null);
+            d3.selectAll(".selection").style("display", 'none');
+            //d3.selectAll(".handle").style("display", 'none');
+        }
     }
 }
