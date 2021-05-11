@@ -52,7 +52,7 @@ function drawPCP(data) {
         attrName = dimensions[i]
         if(attrName == "Continent") {
             y[attrName] = d3.scaleBand()
-              .domain(["Africa", "Europe", "North America", "South America", "Oceania"])
+              .domain(data.map(function(p) { return p[attrName]; }))
               .range([height - 30, 0]);
 
         }
