@@ -65,8 +65,6 @@ $(document).ready(function() {
         foreground.style("stroke", function(d) {
                  if (typeof d == undefined || d == null)
                      return white;
-                 if (color_theme == "whole")
-                     return white;
                  if (color_theme == "whole") {
                      if (d["Country"] == max_country)        return "#ff004b";
                      else if (d["Country"] == min_country)   return "#ffff00";
@@ -398,7 +396,14 @@ function reset() {
         .call( zoom.transform, d3.zoomIdentity ); // updated for d3 v4
 
     svg_scat.selectAll("circle")
-        .style("fill", function(d2) { return continent_colors[d2["continent"]];  })
+        .style("fill", function(d2) {
+            if (color_theme == "whole") {
+                if (d2["country"] == max_country)        return "#ff004b";
+                else if (d2["country"] == min_country)   return "#ffff00";
+                else return white;
+            }
+            else return continent_colors[d["Continent"]];
+         })
         .attr("r", function(d2) { return 5 * Math.sqrt(d2["count"]); });
 
     selected_country = "none";
