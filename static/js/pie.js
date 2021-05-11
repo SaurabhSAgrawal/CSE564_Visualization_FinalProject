@@ -23,9 +23,9 @@ function drawPieChart(pie_data) {
     var tooltipMarginpie = 0;
 
     var radius = Math.min(widthpie - paddingpie, heightpie - paddingpie) / 2;
-    radius = radius - 20;
+    radius = radius - 25;
     var color = d3.scaleOrdinal().domain(pie_data)
-                                .range(["#F7FBFF", "#08306B"]);
+                                .range(["#F7FBFF", "rgb(118, 141, 175)"]);
 
     var svg3 = d3.select("#piechart")
                     .append('svg')
@@ -62,12 +62,12 @@ function drawPieChart(pie_data) {
                     .attr('d', arc)
                     .attr('fill', (d,i) => color(i))
                     .style('opacity', opacitypie)
-                    .style('stroke', 'white')
-                    .on("mouseover", function(d) {
-                        d3.selectAll('pie_path')
-                          .style("opacity", otherOpacityOnHoverpie);
-                        d3.select(this) 
-                          .style("opacity", opacityHoverpie);
+                    // .style('stroke', 'white')
+                    // .on("mouseover", function(d) {
+                    //     d3.selectAll('pie_path')
+                    //       .style("opacity", otherOpacityOnHoverpie);
+                    //     d3.select(this) 
+                    //       .style("opacity", opacityHoverpie);
                   
                         // let g1 = d3.select("svg").
                         // transition()
@@ -92,7 +92,7 @@ function drawPieChart(pie_data) {
                         //   .attr("height", bboxpie.height + (paddingpie*2))
                         //   .style("fill", "white")
                         //   .style("opacity", 0.75);
-                      })
+                      
                     // .on("mousemove", function(d) {
                     //       let mousePositionpie = d3.mouse(this);
                     //       let x = mousePositionpie[0] + widthpie/2;
@@ -118,13 +118,13 @@ function drawPieChart(pie_data) {
                     //         .style("opacity", 1)
                     //         .attr('transform',`translate(${x}, ${y})`);
                     //   })
-                    .on("mouseout", function(d) {   
-                        d3.select("svg")
-                          .style("cursor", "none")  
-                          .select(".tooltip").remove();
-                      d3.selectAll('.pieclass')
-                          .style("opacity", opacitypie);
-                      })
+                    // .on("mouseout", function(d) {   
+                    //     d3.select("svg")
+                    //       .style("cursor", "none")  
+                    //       .select(".tooltip").remove();
+                    //   d3.selectAll('.pieclass')
+                    //       .style("opacity", opacitypie);
+                    //   })
                     // .on("touchstart", function(d) {
                     //     d3.select(".pie")
                     //       .style("cursor", "none");    
