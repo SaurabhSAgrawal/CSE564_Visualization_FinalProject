@@ -6,7 +6,6 @@ $(document).ready(function(){
     $('select').not('.disabled').formSelect();
 });
 
-console.log("hey!");
 
 var red_c = "#ff004b"; var light_red_c = "#feccdb";
 var blue_c = "#0085ca"; var light_blue_c = "#c1e9ff";
@@ -204,18 +203,19 @@ function drawScatterplot(data, x_attr, y_attr) {
                      if (color_theme == "whole") {
                          if (d["country"] == max_country)        return "#ff004b";
                          else if (d["country"] == min_country)   return "#ffff00";
-                         else return "#0085ca";
+                         else return white;
                      }
                      else return continent_colors[d["continent"]];
                  }
                  else  {
                     //removeFromArray(selected_countries, d["country"]);
                     /* UPDATE OTHER PLOTS */
-                    if (color_theme == "whole") {
-                        if (d["country"] == max_country)        return "#ff004b";
-                        else if (d["country"] == min_country)   return "#ffff00";
-                        else return white;
-                    }
+                    // if (color_theme == "whole") {
+                    //     if (d["country"] == max_country)        return "#ff004b";
+                    //     else if (d["country"] == min_country)   return "#ffff00";
+                    //     else return white;
+                    // }
+                    return "#2b4d80";
                     // return white;
                  }
             })
@@ -230,6 +230,18 @@ function drawScatterplot(data, x_attr, y_attr) {
         //     svg_line.selectAll("#label_"+attr).remove();
         // // svg_line.selectAll("path").remove();
         // updateLinechart();
+
+        foreground
+        // .style("stroke", function(d) {
+        //          // console.log(selected_countries, d["Country"]);
+        //          if (selected_countries.includes(d["Country"])) return white;
+        //      })
+             // .style("opacity", 1)
+             .style('display', function(d) {
+            if (selected_countries.includes(d["Country"]))   return null;
+            else return "none";
+        });
+
     }
 
     function brushended() {
@@ -243,12 +255,25 @@ function drawScatterplot(data, x_attr, y_attr) {
                 // .style("fill", white);
                 .style("fill", function(d) {
                     if (color_theme == "whole") {
-                        console.log(d);
                         if (d["country"] == max_country)        return "#ff004b";
                         else if (d["country"] == min_country)   return "#ffff00";
                         else return white;
                     }
                     else return continent_colors[d["continent"]]; });
+
+            foreground
+            // .style("stroke", function(d) {
+            //          if (typeof d == undefined || d == null)
+            //              return white;
+            //          if (color_theme == "whole") {
+            //              if (d["Country"] == max_country)        return "#ff004b";
+            //              else if (d["Country"] == min_country)   return "#ffff00";
+            //              else return white;
+            //          }
+            //          else return continent_colors[d["Continent"]];
+            //      })
+                 .style("opacity", 0.3)
+                 .style('display', function(d) { return null; });
             /* UPDATE OTHER PLOTS */
         }
         selected_country = "none";

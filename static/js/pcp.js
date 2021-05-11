@@ -1,5 +1,6 @@
 var pcp_blue = "#436390";
 
+var foreground = 0, background = 0;
 
 var mouseDown = 0;
 document.body.onmousedown = function() {
