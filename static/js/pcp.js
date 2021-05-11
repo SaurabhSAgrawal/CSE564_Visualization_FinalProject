@@ -1,4 +1,15 @@
 var pcp_blue = "#436390";
+
+
+var mouseDown = 0;
+document.body.onmousedown = function() {
+  mouseDown = 1;
+}
+document.body.onmouseup = function() {
+  mouseDown = 0;
+}
+
+
 function drawPCP(data) {
     d3.selectAll(".svg_pcp").remove();
 
@@ -228,9 +239,50 @@ function drawPCP(data) {
             return active.extent[0] <= y[dim](d[dim]) && y[dim](d[dim]) <= active.extent[1];
             }) ? null : 'none';
         });
+
+
+        // d3.select("#pcp")
+        //     .select("svg")
+        //     .select("g")
+        //     .selectAll("foreground_pcp")
+        //     .style("stroke", function(d) {
+        //         for (var active of actives) {
+        //             const dim = active.dimension;
+        //             if (typeof d == undefined || d == null)
+        //                 return "#000000";
+        //             if (active.extent[0] <= y[dim](d[dim]) && y[dim](d[dim]) <= active.extent[1]) {
+        //                 if (color_theme == "whole") {
+        //                     if (d["Country"] == max_country)        return "#ff004b";
+        //                     else if (d["Country"] == min_country)   return "#ffff00";
+        //                     else return white;
+        //                 }
+        //                 else return continent_colors[d["Continent"]];
+        //             }
+        //         }
+        //         console.log("not included");
+        //         return "#000000";
+        // })
+        // .style("opacity", 0);
     }
 
     function brushend() {
-
+        console.log('brush ended');
+        // d3.select("#pcp")
+        //     .select("svg")
+        //     .select("g")
+        //     .selectAll("foreground_pcp")
+        //     .style("stroke", function(d) {
+        //         if (typeof d == undefined || d == null)
+        //             return white;
+        //         if (color_theme == "whole") {
+        //             if (d["Country"] == max_country)        return "#ff004b";
+        //             else if (d["Country"] == min_country)   return "#ffff00";
+        //             else return white;
+        //         }
+        //         else return continent_colors[d["Continent"]];
+        //     })
+        //     .style("opacity", 0);
+        if (!d3.event.selection)
+        foreground.style("display", null);
     }
 }
