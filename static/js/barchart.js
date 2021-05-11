@@ -10,6 +10,17 @@ var svg_bar = d3.select("#barchart")
     .append("g")
         .attr("transform", "translate(" + (margin_bar.left - 55) + ", " + (margin_bar.top - 20) + ")");
 
+var tip_bar = d3.tip()
+                .attr("class", "d3-tip")
+                .offset([-10, 0])
+                .html(function(d, i) {
+                    if (i == 0)         return "<strong>Beer: </strong><span class='details'>"+d;
+                    else if (i == 1)    return "<strong>Wine: </strong><span class='details'>"+d;
+                    else if (i == 2)    return "<strong>Spirits: </strong><span class='details'>"+d;
+                    else if (i == 3)    return "<strong>Other: </strong><span class='details'>"+d;
+                });
+svg_bar.call(tip_bar);
+
 
 $.post("/barchart", function(d) { drawBarchart(d[year]); });
 
@@ -122,7 +133,9 @@ function drawBarchart(data) {
             .attr("transform", function(d, i) { return "translate("+(x(alcohol_labels[i])+svg_width_bar/16)+","+y(d)+")"})
             .attr("width", svg_width_bar/8)
             .attr("height", function(d) { return svg_height_bar-y(d); })
-            .style("fill", light_blue);
+            .style("fill", light_blue)
+            .on("mouseover", function(d, i) { tip_bar.show(d, i); })
+            .on("mouseout", function(d, i) { tip_bar.hide(d, i); });
 
         // .attr("x", function(d, i) { return i*x.bandwidth()/4; })
         // .attr("y", svg_)

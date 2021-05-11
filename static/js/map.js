@@ -65,7 +65,7 @@ $(document).ready(function() {
         d3.select("#pcp")
             .select("svg")
             .select("g")
-            .selectAll("path")
+            .selectAll("foreground_pcp")
             .style("stroke", function(d) {
                 if (typeof d == undefined || d == null)
                     return white;
@@ -76,7 +76,7 @@ $(document).ready(function() {
                 }
                 else return continent_colors[d["Continent"]];
             })
-            .style("opacity", 0.3);
+            .style("opacity", 0);
 
         d3.select("#mapdiv")
             .select("svg")
