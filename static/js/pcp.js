@@ -40,7 +40,9 @@ function drawPCP(data) {
             .attr("text-anchor", "middle")
             .style("font-size", "16px")
             .style("fill","#ccc")
-            .style("text-decoration", "underline")
+            // .style("text-decoration", "underline")
+            .attr("font-family", "arial")
+            .attr("font-weight", "bold")
             .text("Parallel Coordinate Plot");
 
     var g = svg.append("g")
@@ -209,7 +211,8 @@ function drawPCP(data) {
             if(val == null || val == "null") {
                val = 0;
             }
-            return [position(p), y[p](val)];
+            if (p == "Continent") return [position(p), y[p](val)+(height - 30)/(dimensions.length*1.5)]//+3]
+            else return [position(p), y[p](val)];
         }));
     }
 
