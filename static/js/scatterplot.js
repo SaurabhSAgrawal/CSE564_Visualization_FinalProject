@@ -204,14 +204,19 @@ function drawScatterplot(data, x_attr, y_attr) {
                      if (color_theme == "whole") {
                          if (d["country"] == max_country)        return "#ff004b";
                          else if (d["country"] == min_country)   return "#ffff00";
-                         else return white;
+                         else return "#0085ca";
                      }
                      else return continent_colors[d["continent"]];
                  }
                  else  {
                     //removeFromArray(selected_countries, d["country"]);
                     /* UPDATE OTHER PLOTS */
-                    return white;
+                    if (color_theme == "whole") {
+                        if (d["country"] == max_country)        return "#ff004b";
+                        else if (d["country"] == min_country)   return "#ffff00";
+                        else return white;
+                    }
+                    // return white;
                  }
             })
             .attr("r", function(d) { return 5 * Math.sqrt(d["count"]); });
