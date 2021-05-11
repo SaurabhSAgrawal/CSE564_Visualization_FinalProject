@@ -2,6 +2,10 @@
   height: 300px;
 }
 
+.highlight {
+  fill: red;
+}
+
 body {
   background-color: #ccc;
   color: #ccc;
@@ -58,12 +62,14 @@ div.tooltip {
 }
 
 .axis .tick {
-  stroke: #fff;
+  /*stroke: #fff;*/
+  z-index: 1;
 }
 
 .axis .tick text {
-  fill: rgb(207, 206, 206);
+  fill: #fff;
   pointer-events: none;
+  z-index: 1;
 }
 
 .axis.pl_facility .tick text,
@@ -81,7 +87,7 @@ div.tooltip {
 .axis.active line,
 .axis.active path {
   fill: none;
-  stroke: #222;
+  stroke: #fff;
   stroke-width: 1px;
 }
 
