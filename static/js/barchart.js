@@ -14,10 +14,10 @@ var tip_bar = d3.tip()
                 .attr("class", "d3-tip")
                 .offset([-10, 0])
                 .html(function(d, i) {
-                    if (i == 0)         return "<strong>Beer: </strong><span class='details'>"+d;
-                    else if (i == 1)    return "<strong>Wine: </strong><span class='details'>"+d;
-                    else if (i == 2)    return "<strong>Spirits: </strong><span class='details'>"+d;
-                    else if (i == 3)    return "<strong>Other: </strong><span class='details'>"+d;
+                    if (i == 0)         return "<strong>Beer: </strong><span class='details'>"+d.toFixed(3);
+                    else if (i == 1)    return "<strong>Wine: </strong><span class='details'>"+d.toFixed(3);
+                    else if (i == 2)    return "<strong>Spirits: </strong><span class='details'>"+d.toFixed(3);
+                    else if (i == 3)    return "<strong>Other: </strong><span class='details'>"+d.toFixed(3);
                 });
 svg_bar.call(tip_bar);
 
@@ -122,7 +122,7 @@ function drawBarchart(data) {
         .attr("x", 0 - (svg_height_bar / 2))
         .attr("y", 0 - margin_bar.left/2+20)
         .style("text-anchor", "middle")
-        .text("alcohol consumption");
+        .text("consumption (per litre per capita)");
 
     if (beer > 0 || wine > 0 || spirits > 0 || other > 0)
         svg_bar.selectAll("rect")
