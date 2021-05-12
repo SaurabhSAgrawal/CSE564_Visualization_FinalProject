@@ -67,8 +67,8 @@ var tip_scat = d3.tip()
             .offset([-10, 0])
             .html(function(d) {
               return "<strong>Country: </strong><span class='details'>"+d["country"]+"<br></span>"
-              +"<strong>"+x_attr+": </strong><span class='details'>"+d["x_val"]+"<br></span>"
-              +"<strong>"+y_attr+": </strong><span class='details'>"+d["y_val"]+"<br></span>";
+              +"<strong>"+x_attr+": </strong><span class='details'>"+d["x_val"].toFixed(3)+"<br></span>"
+              +"<strong>"+y_attr+": </strong><span class='details'>"+d["y_val"].toFixed(3)+"<br></span>";
             });
 
 svg_scat.call(tip_scat);
