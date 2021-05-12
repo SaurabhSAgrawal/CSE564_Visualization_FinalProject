@@ -195,7 +195,7 @@ function drawLinechart(data) {
             .attr("stroke", light_blue)
             .attr("stroke-width", 2)
             .attr("d", d3.line()
-                .x(function(d) { if (d["value"] != "null") return x(d["year"]); })
+                .x(function(d) { if (d["value"] != "null") return x(d["year"])+(margin_line.left - 55)/5; })
                 .y(function(d) { if (d["value"] != "null") return y(d["value"]); })
             );
             // .mouseover();
