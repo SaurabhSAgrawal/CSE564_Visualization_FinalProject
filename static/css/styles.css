@@ -250,6 +250,10 @@ path {
   stroke: #fff;
 }
 
+#data_line {
+  stroke: #768daf;
+}
+
 .total {
   pointer-events: none;
 }

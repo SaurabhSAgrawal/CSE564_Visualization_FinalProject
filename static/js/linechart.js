@@ -210,6 +210,6 @@ function drawLinechart(data) {
     	// 	.text(attr.replaceAll("_", " ").toLowerCase().replace("gdp", "GDP"));
     }
     svg_line.selectAll("#data_line")
-            .on("mouseover", function(d, i) { tip_line.show(d, i); })
-            .on("mouseout", function(d, i) { tip_line.hide(d, i); })
+            .on("mouseover", function(d, i) { tip_line.show(d, i); d3.select(this).style("stroke", "red");})
+            .on("mouseout", function(d, i) { tip_line.hide(d, i); d3.select(this).style("stroke", light_blue);})
 }
