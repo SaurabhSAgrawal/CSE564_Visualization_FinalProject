@@ -316,6 +316,8 @@ function ready(error, topo) {
         // console.log(selected_country);
         // console.log(year);
 
+        // svg_scat.selectAll("rect.selection").remove();
+        // d3.selectAll(".brush").call(d3.brush.clear());
         svg_scat.selectAll("circle")
             .style("fill", function(d2) {
                 if (d2["country"] == selected_country) {

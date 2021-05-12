@@ -10,7 +10,7 @@ document.body.onmouseup = function() {
   mouseDown = 0;
 }
 
-
+var continent_number = {"Asia": 0, "Europe": 1, "Africa": 2, "North America": 3, "South America": 4, "Oceania": 5}
 function drawPCP(data) {
     d3.selectAll(".svg_pcp").remove();
 
@@ -54,9 +54,14 @@ function drawPCP(data) {
     for (i in dimensions) {
         attrName = dimensions[i]
         if(attrName == "Continent") {
-            y[attrName] = d3.scaleBand()
-              .domain(data.map(function(p) { return p[attrName]; }))
-              .range([height - 30, 0]);
+            // y[attrName] = d3.scaleBand()
+            //   .domain(data.map(function(p) { return p[attrName]; }))
+            //   .range([height - 30, 0]);
+            y[attrName] = d3.scaleLinear()
+                .range([height - 30, 0])
+                .domain([5, 0]);
+                // .domain(["Asia", "Europe", "Africa", "North America", "South America", "Oceania"]);
+
 
         }
         else {
@@ -145,9 +150,31 @@ function drawPCP(data) {
             )
 
     /* Add an axis and title*/
+    // g.append("g")
+    //     .attr("class", "axis_pcp")
+    //     .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
+    //     .append("text")
+    //         .style("text-anchor", "middle")
+    //         .style("font-size", "12px")
+    //         .style("fill", "white")
+    //         .attr("y", -9)
+    //         .attr("transform", "rotate(343)")
+    //         .text(function(d) { return d.toLowerCase().replaceAll("_", " ").replace("gdp", "GDP"); });
+
+
     g.append("g")
         .attr("class", "axis_pcp")
-        .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
+        .each(function(d) {
+            if (d != "Continent") {
+                d3.select(this).call(d3.axisLeft().scale(y[d]));
+            }
+            else {
+                d3.select(this).call(d3.axisLeft().scale(y[d])
+                                        .tickValues([0,1,2,3,4,5])
+                                        .tickFormat(function(p, i) { console.log(["Asia", "Europe", "Africa", "North America", "South America", "Oceania"][i]);return ["Asia", "Europe", "Africa", "North America", "South America", "Oceania"][i]; })
+                )
+            }
+        })
         .append("text")
             .style("text-anchor", "middle")
             .style("font-size", "12px")
@@ -212,7 +239,7 @@ function drawPCP(data) {
             if(val == null || val == "null") {
                val = 0;
             }
-            if (p == "Continent") return [position(p), y[p](val)+(height - 30)/(dimensions.length*1.5)]//+3]
+            if (p == "Continent") return [position(p), y[p](continent_number[val])]//+3]
             else return [position(p), y[p](val)];
         }));
     }
@@ -240,7 +267,9 @@ function drawPCP(data) {
         foreground.style('display', function(d) {
             return actives.every(function(active) {
                 const dim = active.dimension;
-                return active.extent[0] <= y[dim](d[dim]) && y[dim](d[dim]) <= active.extent[1];
+                if (active.dimension != "Continent")
+                    return active.extent[0] <= y[dim](d[dim]) && y[dim](d[dim]) <= active.extent[1];
+                else return active.extent[0] <= y[dim](continent_number[d[dim]]) && y[dim](continent_number[d[dim]]) <= active.extent[1]
             }) ? null : 'none';
         });
     }

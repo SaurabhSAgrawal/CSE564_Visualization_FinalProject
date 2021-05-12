@@ -14,6 +14,18 @@ var svg_line = "";
 //     .append("g")
 //         .attr("transform", "translate(" + (margin_line.left - 55) + ", " + (margin_line.top - 25) + ")");
 
+var tip_line = d3.tip()
+                .attr("class", "d3-tip")
+                .offset([-10, 0])
+                .html(function(d, i) {
+                    return "<strong>"+d[i]["attr"].toLowerCase().replaceAll("_", " ").replaceAll("gdp", "GDP")+"</strong>";
+                    // if (i == 0)         return "<strong>Beer: </strong><span class='details'>"+d;
+                    // else if (i == 1)    return "<strong>Wine: </strong><span class='details'>"+d;
+                    // else if (i == 2)    return "<strong>Spirits: </strong><span class='details'>"+d;
+                    // else if (i == 3)    return "<strong>Other: </strong><span class='details'>"+d;
+                });
+
+
 $.post("/linechart", function(d) { drawLinechart(d); });
 
 d3.select("#select_line_attrs")
@@ -48,6 +60,7 @@ function drawLinechart(data) {
         .attr("height", height_line)
     .append("g")
         .attr("transform", "translate(" + (margin_line.left - 55) + ", " + (margin_line.top - 25) + ")");
+    svg_line.call(tip_line);
     var max = 0;
     var linechart_title = "";
     var attr_values = new Map();
@@ -84,7 +97,7 @@ function drawLinechart(data) {
             attr_values[attr] = [];
             for (var year of years) {
                 if (attr_year_values[year] != "null")
-                    attr_values[attr].push({"year": year, "value": attr_year_values[year]});
+                    attr_values[attr].push({"attr": attr, "year": year, "value": attr_year_values[year]});
             }
         }
     }
@@ -113,7 +126,7 @@ function drawLinechart(data) {
             attr_values[attr] = [];
             for (var year of years) {
                 if (attr_year_values[year] != "null")
-                    attr_values[attr].push({"year": year, "value": attr_year_values[year]});
+                    attr_values[attr].push({"attr": attr, "year": year, "value": attr_year_values[year]});
             }
         }
     }
@@ -137,7 +150,7 @@ function drawLinechart(data) {
             attr_values[attr] = [];
             for (var year of years) {
                 if (attr_year_values[year] != "null")
-                    attr_values[attr].push({"year": year, "value": attr_year_values[year]});
+                    attr_values[attr].push({"attr": attr, "year": year, "value": attr_year_values[year]});
             }
         }
     }
@@ -185,14 +198,18 @@ function drawLinechart(data) {
                 .x(function(d) { if (d["value"] != "null") return x(d["year"]); })
                 .y(function(d) { if (d["value"] != "null") return y(d["value"]); })
             );
+            // .mouseover();
 
-        svg_line.append("text")
-    		.attr("transform", "translate(" + (svg_width_line+3) + "," + y(attr_values[attr][attr_values[attr].length-1]["value"]) + ")")
-            .attr("id", "label_"+attr)
-            .attr("dy", ".35em")
-    		.attr("text-anchor", "start")
-    		.style("fill", "white")
-            .style("font-size", "10px")
-    		.text(attr.replaceAll("_", " ").toLowerCase().replace("gdp", "GDP"));
+        // svg_line.append("text")
+    	// 	.attr("transform", "translate(" + (svg_width_line+3) + "," + y(attr_values[attr][attr_values[attr].length-1]["value"]) + ")")
+        //     .attr("id", "label_"+attr)
+        //     .attr("dy", ".35em")
+    	// 	.attr("text-anchor", "start")
+    	// 	.style("fill", "white")
+        //     .style("font-size", "10px")
+    	// 	.text(attr.replaceAll("_", " ").toLowerCase().replace("gdp", "GDP"));
     }
+    svg_line.selectAll("#data_line")
+            .on("mouseover", function(d, i) { tip_line.show(d, i); })
+            .on("mouseout", function(d, i) { tip_line.hide(d, i); })
 }
