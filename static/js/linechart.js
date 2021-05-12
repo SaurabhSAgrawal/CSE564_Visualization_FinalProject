@@ -1,7 +1,7 @@
 var line_attrs = ["Healthy_life_expectancy_at_birth"];
 
 
-var width_line = 350, height_line = 280;
+var width_line = 390, height_line = 280;
 var margin_line = {top: 50, bottom: 30, left: 100, right: 30};
 var svg_width_line = width_line - margin_line.left - margin_line.right,
     svg_height_line = height_line - margin_line.top - margin_line.bottom;
