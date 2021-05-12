@@ -14,7 +14,7 @@ var continent_number = {"Asia": 0, "Europe": 1, "Africa": 2, "North America": 3,
 function drawPCP(data) {
     d3.selectAll(".svg_pcp").remove();
 
-    var margin = 40, svgWidth = 640, svgHeight = 280, width = svgWidth - margin, height = svgHeight - margin;
+    var margin = 40, svgWidth = 650, svgHeight = 270, width = svgWidth - margin, height = svgHeight - margin;
 
     var x = d3.scalePoint().range([0, width]).padding(0.5);
     var y = {};
@@ -47,10 +47,10 @@ function drawPCP(data) {
             .text("Parallel Coordinate Plot");
 
     var g = svg.append("g")
-        .attr("transform", "translate(" + 40 + "," + 45 + ")");
+        .attr("transform", "translate(" + 40 + "," + 50 + ")");
 
     dimensions = d3.keys(data[0]).filter(function(d) { return (d != "Country" && d != "Alcohol_beer" && d != "Alcohol_wine" && d != "Alcohol_spirits" && d != "Alcohol_other" && d != "Positive_affect" && d != "Negative_affect") });
-    dimensions= ["Continent", "Generosity", "Log_GDP_per_capita", "Life_Ladder", "Perceptions_of_corruption", "Alcohol_all", "Freedom_to_make_life_choices", "Social_support"];
+    dimensions= ["Continent", "Generosity", "Log_GDP_per_capita", "Life_Ladder", "Perceptions_of_corruption", "Freedom_to_make_life_choices", "Alcohol_all", "Healthy_life_expectancy_at_birth", "Social_support"];
     for (i in dimensions) {
         attrName = dimensions[i]
         if(attrName == "Continent") {
@@ -181,7 +181,7 @@ function drawPCP(data) {
             .style("fill", "white")
             .attr("y", -9)
             .attr("transform", "rotate(343)")
-            .text(function(d) { return d.toLowerCase().replaceAll("_", " ").replace("gdp", "GDP"); });
+            .text(function(d) { return d.toLowerCase().replaceAll("_", " ").replace("gdp", "GDP").replace("healthy life expectancy at birth", "healthy life expectancy").replace("freedom to make life choices", "freedom-life choices").replace("perceptions of corruption", "corruption perception"); });
 
     /*Add and store a brush for each axis*/
     g.append("g")
