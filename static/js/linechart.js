@@ -34,7 +34,6 @@ d3.select("#select_line_attrs")
         for (var attr of line_attrs)
             temp.push(attr);
         emptyArray(line_attrs);
-        console.log(temp);
         for (var option of d3.select("#select_line_attrs").property("selectedOptions"))
             line_attrs.push(option.value);
         for (var attr of temp)
@@ -155,6 +154,15 @@ function drawLinechart(data) {
         }
     }
 
+    var line_values = [];
+    for (var attr of line_attrs) {
+        for (var dict of attr_values[attr])
+            line_values.push(dict["value"]);
+    }
+    console.log(line_values)
+    var y_min = Math.min(...line_values);
+    var y_max = Math.max(...line_values);
+    console.log(y_min, y_max);
 
     var x = d3.scaleBand()
         .domain(years)
@@ -171,7 +179,7 @@ function drawLinechart(data) {
         .style("text-anchor", "start");
 
     var y = d3.scaleLinear()
-        .domain([1, 0])
+        .domain([y_max, y_min])
         .range([0, svg_height_line]);
 
     svg_line.append("g")
