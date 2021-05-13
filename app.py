@@ -54,20 +54,13 @@ def piechart():
     year = request.form['year']
     selected_countries = request.form.getlist('countrylist[]')
     selected_country = request.form['country']
-    # print(year)
-    # print(selected_countries)
-    # print(selected_country)
-    # print(df_pie)
     result = df_pie[df_pie['Year'] == int(year)]
     if(len(selected_countries) > 0 or (selected_country != "none" and len(selected_country) > 0)):
-        # print("here")
         result = result[(result['Country'].isin(selected_countries)) | (
             result['Country'] == selected_country)]
     # print(result)
     pos = result['Positive_affect'].sum(skipna=True)
     neg = result['Negative_affect'].sum(skipna=True)
-    # print(pos)
-    # print(neg)
     pos_percentage = pos * 100 / (pos + neg + 0.0000001)
     pos_percentage = round(pos_percentage, 2)
     neg_percentage = neg * 100 / (pos + neg + 0.0000001)
@@ -81,48 +74,6 @@ def piechart():
 
 @app.route("/linechart", methods=['POST', 'GET'])
 def linechart():
-    #     countries = df["Country"].unique().tolist()
-    #     attr_dict = {}
-    #     for attr in attrs_num:
-    #         country_dict = {}
-    #         for country in countries:
-    #             year_dict = {}
-    #             for year in years:
-    #                 temp = df.loc[(df["Country"] == country) & (df["Year"] == year)][attr]
-    #                 if temp.empty:
-    #                     continue
-    #                 year_dict[str(year)] = df.loc[(df["Country"] == country) & (df["Year"] == year)][attr].to_numpy()[0]
-    #             vals = [val for val in year_dict.values() if not isinstance(val, str)]
-    #             if len(vals) == 0:
-    #                 continue
-    #             min_val = min(vals); max_val = max(vals)
-    #             if max_val - min_val > 0:
-    #                 year_dict = {k: (v-min_val)/(max_val-min_val) for k, v in year_dict.items() if not isinstance(v, str)}
-    #             country_dict[country] = year_dict
-    #         attr_dict[attr] = country_dict
-    #
-
-    # countries = df["Country"].unique().tolist()
-    # attr_dict = {}
-    # for attr in attrs_num:
-    #     year_dict = {}
-    #     for year in years:
-    #         country_dict = {}
-    #         for country in countries:
-    #             temp = df.loc[(df["Country"] == country) & (df["Year"] == year)][attr]
-    #             if temp.empty:
-    #                 continue
-    #             # year_dict[str(year)] = df.loc[(df["Country"] == country) & (df["Year"] == year)][attr].to_numpy()[0]
-    #             country_dict[country] = df.loc[(df["Country"] == country) & (df["Year"] == year)][attr].to_numpy()[0]
-    #         vals = [val for val in country_dict.values() if not isinstance(val, str)]
-    #         if len(vals) == 0:
-    #             continue
-    #         min_val = min(vals); max_val = max(vals)
-    #         if max_val - min_val > 0:
-    #             country_dict = {k: (v-min_val)/(max_val-min_val) for k, v in country_dict.items() if not isinstance(v, str)}
-    #         year_dict[str(year)] = country_dict
-    #     attr_dict[attr] = year_dict
-
     with open("./data/line_data.json", "r") as f:
         attr_dict = json.load(f)
     return jsonify(attr_dict)

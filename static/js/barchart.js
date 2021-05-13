@@ -105,7 +105,6 @@ function drawBarchart(data) {
         .attr("class", "axisWhite")
         .attr("id", "y_axis")
         .call(d3.axisLeft(y));
-// selected_country.replaceAll("none", "all countries")
 
     svg_bar.append("text")
         .attr("id", "country_name")
@@ -136,10 +135,4 @@ function drawBarchart(data) {
             .style("fill", light_blue)
             .on("mouseover", function(d, i) { tip_bar.show(d, i); })
             .on("mouseout", function(d, i) { tip_bar.hide(d, i); });
-
-        // .attr("x", function(d, i) { return i*x.bandwidth()/4; })
-        // .attr("y", svg_)
-        // .attr("width", svg_width_bar*(2/3)/4)
-        // .attr("height", function(d) { return y(d); })
-        // .style("fill", white);
 }

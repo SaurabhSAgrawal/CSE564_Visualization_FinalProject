@@ -18,9 +18,6 @@ function drawPieChart(pie_data) {
     var heightpie= 220;
     var paddingpie = 0;
     var opacitypie = .8;
-    var opacityHoverpie = 1;
-    var otherOpacityOnHoverpie = .8;
-    var tooltipMarginpie = 0;
 
     var radius = Math.min(widthpie - paddingpie, heightpie - paddingpie) / 2;
     radius = radius - 25;
@@ -64,73 +61,6 @@ function drawPieChart(pie_data) {
                     .attr('d', arc)
                     .attr('fill', (d,i) => color(i))
                     .style('opacity', opacitypie)
-                    // .style('stroke', 'white')
-                    // .on("mouseover", function(d) {
-                    //     d3.selectAll('pie_path')
-                    //       .style("opacity", otherOpacityOnHoverpie);
-                    //     d3.select(this)
-                    //       .style("opacity", opacityHoverpie);
-
-                        // let g1 = d3.select("svg").
-                        // transition()
-                        // .duration(700)
-                        //   .style("cursor", "pointer")
-                        //   .append("g")
-                        //   .attr("class", "tooltip")
-                        //   .style("opacity", 0);
-
-                        // g1.append("text")
-                        //   .attr("class", "name-text")
-                        //   .text(`${d.pie_data.name} (${d.pie_data.value})`)
-                        //   .attr('text-anchor', 'middle');
-
-                        // let textpie = g1.select("text");
-                        // let bboxpie = textpie.node().getBBox();
-                        // let paddingpie = 2;
-                        // g1.insert("rect", "text")
-                        //   .attr("x", bboxpie.x - paddingpie)
-                        //   .attr("y", bboxpie.y - paddingpie)
-                        //   .attr("width", bboxpie.width + (paddingpie*2))
-                        //   .attr("height", bboxpie.height + (paddingpie*2))
-                        //   .style("fill", "white")
-                        //   .style("opacity", 0.75);
-
-                    // .on("mousemove", function(d) {
-                    //       let mousePositionpie = d3.mouse(this);
-                    //       let x = mousePositionpie[0] + widthpie/2;
-                    //       let y = mousePositionpie[1] + heightpie/2 - tooltipMarginpie;
-
-                    //       let textpie = d3.select('.tooltip text');
-                    //       let bboxpie = textpie.node().getBBox();
-                    //       if(x - bboxpie.width/2 < 0) {
-                    //         x = bboxpie.width/2;
-                    //       }
-                    //       else if(widthpie - x - bboxpie.width/2 < 0) {
-                    //         x = widthpie - bboxpie.width/2;
-                    //       }
-
-                    //       if(y - bboxpie.height/2 < 0) {
-                    //         y = bboxpie.height + tooltipMarginpie * 2;
-                    //       }
-                    //       else if(heightpie - y - bboxpie.height/2 < 0) {
-                    //         y = heightpie - bboxpie.height/2;
-                    //       }
-
-                    //       d3.select('.tooltip')
-                    //         .style("opacity", 1)
-                    //         .attr('transform',`translate(${x}, ${y})`);
-                    //   })
-                    // .on("mouseout", function(d) {
-                    //     d3.select("svg")
-                    //       .style("cursor", "none")
-                    //       .select(".tooltip").remove();
-                    //   d3.selectAll('.pieclass')
-                    //       .style("opacity", opacitypie);
-                    //   })
-                    // .on("touchstart", function(d) {
-                    //     d3.select(".pie")
-                    //       .style("cursor", "none");
-                    // })
                     .transition()
                     .duration(function(d, i) {
                         return i * 800;

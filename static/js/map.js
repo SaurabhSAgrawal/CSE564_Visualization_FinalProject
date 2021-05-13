@@ -18,27 +18,21 @@ var country_continent = new Map();
 var colorScale_asia = d3.scaleLinear()
                         .domain([2.3, 8])
                         .range(["#ffffff", "#ff004b"]);
-                        // .range([light_red_c, red_c]);
 var colorScale_europe = d3.scaleLinear()
                         .domain([2.3, 8])
                         .range(["#ffffff", "#0085ca"]);
-                        // .range([light_blue_c, blue_c]);
 var colorScale_africa = d3.scaleLinear()
                         .domain([2.3, 8])
                         .range(["#ffffff", "#189000"]);
-                        // .range([light_green_c, green_c]);
 var colorScale_north = d3.scaleLinear()
                         .domain([2.3, 8])
                         .range(["#ffffff", "#a200ff"]);
-                        // .range([light_purple_c, purple_c]);
 var colorScale_south = d3.scaleLinear()
                         .domain([2.3, 8])
                         .range(["#ffffff", "#ff7c00"]);
-                        // .range([light_orange_c, orange_c]);
 var colorScale_oceania = d3.scaleLinear()
                         .domain([2.3, 8])
                         .range(["#ffffff", "#ffff00"]);
-                        // .range([light_navy_c, navy_c]);
 
 
 $(document).ready(function() {
@@ -152,26 +146,12 @@ function initMap() {
             }
         });
         drawPCP(dataByYear[year]);
-        // d3.selectAll(".Country")
-        // .style("opacity", function(d) {if(d == max_country || d == min_country) {
-        //     return .5;
-        // }});
-        console.log(min_country);
-        console.log(max_country);
+        //console.log(min_country);
+        //console.log(max_country);
         max_ladder = -10;
         min_ladder = 100;
     });
 }
-
-// var pcpData = {}
-// $.post("/pcp", function(d) {
-//     pcpData = JSON.parse(d.pcpData);
-//     drawPCP(pcpData[2005]);
-// });
-
-
-
-
 
 var year = 2012;
 var year_prev = year;
@@ -230,8 +210,8 @@ onload = function() {
             updateBarchart();
             getDataDrawPie();
             year_prev = year;
-            console.log(min_country);
-            console.log(max_country);
+            //console.log(min_country);
+            //console.log(max_country);
             max_ladder = -10;
             min_ladder = 100;
         }
@@ -279,10 +259,6 @@ d3.queue()
   .await(ready);
 
 function ready(error, topo) {
-    // d3.selectAll(".Country")
-    //     .style("opacity", function(d) {if(d == max_country || d == min_country) {
-    //         return 1;
-    //     }});
     let mouseOver = function(d) {
         d3.selectAll(".Country")
         .transition()
@@ -312,16 +288,9 @@ function ready(error, topo) {
 
         country = d.properties.name;
         selected_country = country.toString();
-        // console.log(d);
-        // console.log(selected_country);
-        // console.log(year);
-
-        // svg_scat.selectAll("rect.selection").remove();
-        // d3.selectAll(".brush").call(d3.brush.clear());
         svg_scat.selectAll("circle")
             .style("fill", function(d2) {
                 if (d2["country"] == selected_country) {
-                    // return "#768daf";
                     return continent_colors[d2["continent"]];
                 }
                 else {
@@ -335,9 +304,6 @@ function ready(error, topo) {
             });
 
         foreground
-        // .style("stroke", function(d) {
-        //          if (d["Country"] == selected_country) return white;
-        //      })
              .style("opacity", 1)
              .style('display', function(d) {
             if (d["Country"] == selected_country)   return null;
@@ -349,13 +315,6 @@ function ready(error, topo) {
         for (var attr of line_attrs)
             svg_line.selectAll("#label_"+attr).remove();
         updateLinechart();
-        // d3.queue().defer(d3.json, "/getDataPerCountryPie?country="+selected_country)
-        // .await(drawpie);
-        // d3.queue().defer(d3.json, "/getDataSun?country="+selected_country)
-        // .await(drawsunburst);
-        // d3.queue().defer(d3.json, "/getDataPerCountryBar?country=" + selected_country).await(updatebarchart);
-
-        // d3.queue().defer(d3.json, "/getTextData?country=" + selected_country).await(drawtext);
     }
 
     // Draw the map
@@ -424,16 +383,6 @@ function reset() {
     selected_country = "none";
 
     foreground
-    // .style("stroke", function(d) {
-    //          if (typeof d == undefined || d == null)
-    //              return white;
-    //          if (color_theme == "whole") {
-    //              if (d["Country"] == max_country)        return "#ff004b";
-    //              else if (d["Country"] == min_country)   return "#ffff00";
-    //              else return white;
-    //          }
-    //          else return continent_colors[d["Continent"]];
-    //      })
          .style("opacity", 0.3)
          .style('display', function(d) { return null; });
 
@@ -447,12 +396,3 @@ function zoomed() {
     // g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")"); // not in d3 v4
     g.attr("transform", d3.event.transform); // updated for d3 v4
 }
-
-// const range = document.getElementById('range'), rangeV = document.getElementById('rangeV'),
-// setValue = ()=>{
-//     const newValue = Number( (range.value - range.min) * 100 / (range.max - range.min) ), newPosition = 10 - (newValue * 0.2);
-//     rangeV.innerHTML = `<span>${range.value}</span>`;
-//     rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
-// };
-// document.addEventListener("DOMContentLoaded", setValue);
-// range.addEventListener('input', setValue);

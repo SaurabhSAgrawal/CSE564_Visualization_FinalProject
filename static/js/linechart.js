@@ -6,23 +6,12 @@ var margin_line = {top: 50, bottom: 30, left: 100, right: 30};
 var svg_width_line = width_line - margin_line.left - margin_line.right,
     svg_height_line = height_line - margin_line.top - margin_line.bottom;
 var svg_line = "";
-// var svg_line = d3.select("#linechart")
-//     .append("svg")
-//         .attr("class", "linechart_svg")
-//         .attr("width", width_line)
-//         .attr("height", height_line)
-//     .append("g")
-//         .attr("transform", "translate(" + (margin_line.left - 55) + ", " + (margin_line.top - 25) + ")");
 
 var tip_line = d3.tip()
                 .attr("class", "d3-tip")
                 .offset([-10, 0])
                 .html(function(d, i) {
                     return "<strong>"+d[i]["attr"].toLowerCase().replaceAll("_", " ").replaceAll("gdp", "GDP")+"</strong>";
-                    // if (i == 0)         return "<strong>Beer: </strong><span class='details'>"+d;
-                    // else if (i == 1)    return "<strong>Wine: </strong><span class='details'>"+d;
-                    // else if (i == 2)    return "<strong>Spirits: </strong><span class='details'>"+d;
-                    // else if (i == 3)    return "<strong>Other: </strong><span class='details'>"+d;
                 });
 
 
@@ -132,7 +121,7 @@ function drawLinechart(data) {
 
     else {
         linechart_title = selected_country;
-        console.log(selected_country);
+        //console.log(selected_country);
         for (var attr of line_attrs) {
             var attr_year_values = new Map();
 
@@ -159,10 +148,10 @@ function drawLinechart(data) {
         for (var dict of attr_values[attr])
             line_values.push(dict["value"]);
     }
-    console.log(line_values)
+    //console.log(line_values)
     var y_min = Math.min(...line_values);
     var y_max = Math.max(...line_values);
-    console.log(y_min, y_max);
+    //console.log(y_min, y_max);
 
     var x = d3.scaleBand()
         .domain(years)
@@ -206,16 +195,6 @@ function drawLinechart(data) {
                 .x(function(d) { if (d["value"] != "null") return x(d["year"])+(margin_line.left - 55)/5; })
                 .y(function(d) { if (d["value"] != "null") return y(d["value"]); })
             );
-            // .mouseover();
-
-        // svg_line.append("text")
-    	// 	.attr("transform", "translate(" + (svg_width_line+3) + "," + y(attr_values[attr][attr_values[attr].length-1]["value"]) + ")")
-        //     .attr("id", "label_"+attr)
-        //     .attr("dy", ".35em")
-    	// 	.attr("text-anchor", "start")
-    	// 	.style("fill", "white")
-        //     .style("font-size", "10px")
-    	// 	.text(attr.replaceAll("_", " ").toLowerCase().replace("gdp", "GDP"));
     }
     svg_line.selectAll("#data_line")
             .on("mouseover", function(d, i) { tip_line.show(d, i); d3.select(this).style("stroke", "red");})
