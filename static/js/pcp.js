@@ -27,13 +27,6 @@ function drawPCP(data) {
             .attr("class", "svg_pcp")
             .attr("width", svgWidth)
             .attr("height", svgHeight);
-    /*Heading*/
-    // svg.append("text")
-    //     .attr("x", (width / 2))
-    //     .attr("y", 20)
-    //     .attr("font-size", "24px")
-    //     .style("text-anchor", "middle")
-    //     .text("Parallel Coordinate Plot");
 
     svg.append("text")
             .attr("x", (svgWidth / 2))
@@ -54,9 +47,6 @@ function drawPCP(data) {
     for (i in dimensions) {
         attrName = dimensions[i]
         if(attrName == "Continent") {
-            // y[attrName] = d3.scaleBand()
-            //   .domain(data.map(function(p) { return p[attrName]; }))
-            //   .range([height - 30, 0]);
             y[attrName] = d3.scaleLinear()
                 .range([height - 30, 0])
                 .domain([5, 0]);
@@ -72,7 +62,6 @@ function drawPCP(data) {
                 if (d[attrName] == "null")  return 0;
                 else return +d[attrName]; });
             y[attrName] = d3.scaleLinear()
-            // .domain( d3.extent(data, function(d) { return +d[attrName]; }) )
             .domain([y_min, y_max])
             .range([height - 30, 0]);
         }
@@ -91,8 +80,6 @@ function drawPCP(data) {
             .style("stroke", function(d) {
                 //return "#08306B";
                 return "#222";
-                //return color(d.ClusterID + 1);
-                // return continent_colors[d["Continent"]];
             });
 
     foreground = g.append("g")
@@ -104,9 +91,6 @@ function drawPCP(data) {
             .attr("d", path)
             .attr("class", "path_pcp")
             .style("stroke", function(d) {
-                //return "#08306B";
-                // return pcp_blue; here
-                //return color(d.ClusterID + 1);
                 if (color_theme == "whole") {
                     if (d["Country"] == max_country)        return "#ff004b";
                     else if (d["Country"] == min_country)   return "#ffff00";
@@ -149,18 +133,6 @@ function drawPCP(data) {
                 })
             )
 
-    /* Add an axis and title*/
-    // g.append("g")
-    //     .attr("class", "axis_pcp")
-    //     .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
-    //     .append("text")
-    //         .style("text-anchor", "middle")
-    //         .style("font-size", "12px")
-    //         .style("fill", "white")
-    //         .attr("y", -9)
-    //         .attr("transform", "rotate(343)")
-    //         .text(function(d) { return d.toLowerCase().replaceAll("_", " ").replace("gdp", "GDP"); });
-
 
     g.append("g")
         .attr("class", "axis_pcp")
@@ -171,7 +143,7 @@ function drawPCP(data) {
             else {
                 d3.select(this).call(d3.axisLeft().scale(y[d])
                                         .tickValues([0,1,2,3,4,5])
-                                        .tickFormat(function(p, i) { console.log(["Asia", "Europe", "Africa", "North America", "South America", "Oceania"][i]);return ["Asia", "Europe", "Africa", "North America", "South America", "Oceania"][i]; })
+                                        .tickFormat(function(p, i) {return ["Asia", "Europe", "Africa", "North America", "South America", "Oceania"][i]; })
                 )
             }
         })
